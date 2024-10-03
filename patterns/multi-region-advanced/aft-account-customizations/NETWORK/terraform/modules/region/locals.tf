@@ -19,6 +19,9 @@ locals {
   dns_resolver_rules = [
     {
       domain_name = "on.aws"
+    },
+    {
+      domain_name = "${var.region}.amazonaws.com"
     }
   ]
 }

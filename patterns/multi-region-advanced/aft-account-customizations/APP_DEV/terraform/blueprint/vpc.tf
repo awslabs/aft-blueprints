@@ -15,11 +15,6 @@ module "vpc" {
   create_data_subnets   = lookup(var.vpc, "create_data_subnets", false)
   availability_zones    = ["az1"]
   enable_flow_log       = false
-  interface_endpoints = [
-    "ssm",
-    "ssmmessages",
-    "ec2messages"
-  ]
-  gateway_endpoints = ["s3"]
-  tags              = var.tags
+  gateway_endpoints     = ["s3"]
+  tags                  = var.tags
 }

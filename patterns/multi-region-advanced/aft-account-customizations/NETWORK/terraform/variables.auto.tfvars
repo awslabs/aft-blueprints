@@ -46,6 +46,14 @@ aws_availability_zones = {
   }
 }
 
+aws_vpc_endpoint_services = [
+  "ec2",
+  "ec2messages",
+  "ssm",
+  "ssmmessages"
+]
+
+
 aws_vpn_info = {
   primary_region = {
     cgw_ip_address = "1.1.1.1"
@@ -61,3 +69,4 @@ aws_dx_info = {
   gateway_name = "aws-dx-gateway"
   bgp_asn      = "64550"
 }
+

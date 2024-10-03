@@ -24,13 +24,15 @@ module "primary_region" {
     aws = aws.primary
   }
 
-  region              = data.aws_region.primary.name
-  availability_zones  = var.aws_availability_zones.primary_region
-  tgw_amazon_side_asn = "64513"
-  ipam_pools          = module.ipam.pools_level_2
-  vpn_cgw_ip_address  = var.aws_vpn_info.primary_region.cgw_ip_address
-  vpn_cgw_bgp_asn     = var.aws_vpn_info.primary_region.cgw_bgp_asn
-  tags                = local.tags
+  region                = data.aws_region.primary.name
+  availability_zones    = var.aws_availability_zones.primary_region
+  tgw_amazon_side_asn   = "64513"
+  ipam_pools            = module.ipam.pools_level_2
+  region_cidr_blocks    = var.aws_ip_address_plan.primary_region.cidr_blocks
+  vpc_endpoint_services = var.aws_vpc_endpoint_services
+  vpn_cgw_ip_address    = var.aws_vpn_info.primary_region.cgw_ip_address
+  vpn_cgw_bgp_asn       = var.aws_vpn_info.primary_region.cgw_bgp_asn
+  tags                  = local.tags
 }
 
 module "secondary_region" {
@@ -39,11 +41,13 @@ module "secondary_region" {
     aws = aws.secondary
   }
 
-  region              = data.aws_region.secondary.name
-  availability_zones  = var.aws_availability_zones.secondary_region
-  tgw_amazon_side_asn = "64514"
-  ipam_pools          = module.ipam.pools_level_2
-  vpn_cgw_ip_address  = var.aws_vpn_info.secondary_region.cgw_ip_address
-  vpn_cgw_bgp_asn     = var.aws_vpn_info.secondary_region.cgw_bgp_asn
-  tags                = local.tags
+  region                = data.aws_region.secondary.name
+  availability_zones    = var.aws_availability_zones.secondary_region
+  tgw_amazon_side_asn   = "64514"
+  ipam_pools            = module.ipam.pools_level_2
+  region_cidr_blocks    = var.aws_ip_address_plan.secondary_region.cidr_blocks
+  vpc_endpoint_services = var.aws_vpc_endpoint_services
+  vpn_cgw_ip_address    = var.aws_vpn_info.secondary_region.cgw_ip_address
+  vpn_cgw_bgp_asn       = var.aws_vpn_info.secondary_region.cgw_bgp_asn
+  tags                  = local.tags
 }

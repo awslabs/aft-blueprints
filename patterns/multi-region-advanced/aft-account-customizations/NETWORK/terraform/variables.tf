@@ -104,6 +104,23 @@ EOF
   }
 }
 
+variable "aws_vpc_endpoint_services" {
+  description = <<-EOF
+  "List with the VPC endpoint services to be centralized in the network account."
+  Example:
+    ```
+  [
+    "ec2",
+    "ec2messages",
+    "ssm",
+    "ssmmessages"
+  ]
+    ```
+EOF
+  type        = list(string)
+  default     = []
+}
+
 variable "aws_vpn_info" {
   description = <<-EOF
   "Object with VPN information to be used in AWS regions."
