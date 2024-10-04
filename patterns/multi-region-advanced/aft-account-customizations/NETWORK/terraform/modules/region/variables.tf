@@ -11,23 +11,6 @@ variable "region_cidr_blocks" {
   type        = list(string)
 }
 
-variable "vpc_endpoint_services" {
-  description = <<-EOF
-  "List with the VPC endpoint services to be centralized in the network account."
-  Example:
-    ```
-  [
-    "ec2",
-    "ec2messages",
-    "ssm",
-    "ssmmessages"
-  ]
-    ```
-EOF
-  type        = list(string)
-  default     = []
-}
-
 variable "availability_zones" {
   description = <<-EOF
   "Map of availability zones allowed to be used in this region."
@@ -47,6 +30,23 @@ EOF
     )
     error_message = "You must specify a list with valid availability zones allowed in this region, such as az1, az2, az3 and az4."
   }
+}
+
+variable "vpc_endpoint_services" {
+  description = <<-EOF
+  "List with the VPC endpoint services to be centralized in the network account."
+  Example:
+    ```
+    vpc_endpoint_services = [
+      "ec2",
+      "ec2messages",
+      "ssm",
+      "ssmmessages"
+    ]
+    ```
+EOF
+  type        = list(string)
+  default     = []
 }
 
 variable "tgw_amazon_side_asn" {
@@ -75,11 +75,6 @@ variable "ipam_pools" {
   default     = {}
 }
 
-variable "tags" {
-  type    = map(string)
-  default = {}
-}
-
 variable "vpn_cgw_ip_address" {
   type        = string
   description = "The Internet-routable IP address for the customer gateway's outside interface. The address must be static."
@@ -99,8 +94,14 @@ variable "vpn_cgw_bgp_asn" {
     error_message = "Value shoud be between 64512 and 65534."
   }
 }
+
 variable "vpn_static_routes_only" {
   description = "Whether the VPN connection uses static routes exclusively."
   type        = bool
   default     = false
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
 }

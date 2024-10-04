@@ -16,7 +16,7 @@ variable "allowed_cidr" {
 
 variable "vpc_name" {
   type    = string
-  default = ""
+  default = "vpc"
 }
 
 variable "interface_endpoints" {

@@ -64,7 +64,6 @@ module "vpce" {
   source = "../../../../common/modules/network/vpce"
 
   vpc_id       = module.vpc_endpoints.vpc_id
-  vpc_name     = "endpoints-vpc"
   allowed_cidr = var.region_cidr_blocks
   interface_endpoints = {
     subnet_ids = module.vpc_endpoints.subnets["vpce"]
