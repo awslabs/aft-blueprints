@@ -19,9 +19,9 @@ module "tgw_vpc_attachment" {
 module "vpce" {
   source = "../vpce"
 
-  vpc_id       = aws_vpc.this.id
-  vpc_name     = local.vpc_name
-  allowed_cidr = [aws_vpc.this.cidr_block]
+  vpc_id   = aws_vpc.this.id
+  vpc_name = local.vpc_name
+  vpc_cidr = aws_vpc.this.cidr_block
   interface_endpoints = {
     subnet_ids = [for sub in local.subnets : aws_subnet.subnets[sub.key].id if sub.vpc_endpoint == true]
     services   = var.interface_endpoints

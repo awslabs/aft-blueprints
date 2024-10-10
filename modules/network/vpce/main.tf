@@ -19,11 +19,20 @@ resource "aws_security_group" "endpoints" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "endpoints" {
-  for_each = { for cidr in var.allowed_cidr : cidr => cidr if length(var.interface_endpoints.services) > 0 }
+resource "aws_vpc_security_group_ingress_rule" "vpc" {
+  count = length(var.interface_endpoints.services) > 0 ? 1 : 0
 
   security_group_id = aws_security_group.endpoints[0].id
-  description       = "Allow ingress trafic"
+  description       = "Allow VPC ingress trafic"
+  cidr_ipv4         = var.vpc_cidr
+  ip_protocol       = "-1"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "endpoints" {
+  for_each = toset(var.allowed_cidr)
+
+  security_group_id = aws_security_group.endpoints[0].id
+  description       = "Allow additional ingress trafic"
   cidr_ipv4         = each.value
   ip_protocol       = "-1"
 }
