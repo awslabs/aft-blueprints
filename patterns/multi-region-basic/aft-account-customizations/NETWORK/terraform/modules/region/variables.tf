@@ -6,6 +6,28 @@ variable "region" {
   type        = string
 }
 
+variable "region_cidr_blocks" {
+  description = "List with IPAM region CIDR Blocks"
+  type        = list(string)
+}
+
+variable "vpc_endpoint_services" {
+  description = <<-EOF
+  "List with the VPC endpoint services to be centralized in the network account."
+  Example:
+    ```
+  [
+    "ec2",
+    "ec2messages",
+    "ssm",
+    "ssmmessages"
+  ]
+    ```
+EOF
+  type        = list(string)
+  default     = []
+}
+
 variable "availability_zones" {
   description = <<-EOF
   "Map of availability zones allowed to be used in this region."

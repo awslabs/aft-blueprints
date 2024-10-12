@@ -103,3 +103,20 @@ EOF
     error_message = "You must specify a list with valid availability zones allowed in this region, such as az1, az2, az3 and az4."
   }
 }
+
+variable "aws_vpc_endpoint_services" {
+  description = <<-EOF
+  "List with the VPC endpoint services to be centralized in the network account."
+  Example:
+    ```
+  [
+    "ec2",
+    "ec2messages",
+    "ssm",
+    "ssmmessages"
+  ]
+    ```
+EOF
+  type        = list(string)
+  default     = []
+}
