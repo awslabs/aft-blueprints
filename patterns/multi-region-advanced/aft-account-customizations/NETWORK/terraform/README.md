@@ -6,6 +6,7 @@ The following resources will be deployed by this solution (not limited to those 
 
 - AWS Transit Gateway
 - Amazon VPC IP Address Manager (IPAM)
+- Centralized VPC Endpoints
 - Centralized Inspection VPC for East-West and North-South traffic with AWS Network Firewall
 - Centralized Endpoints VPC for Route 53 Endpoints and VPC Endpoints
 - Amazon Route 53 Private Hosted Zone
@@ -76,6 +77,21 @@ aws_ip_address_plan = {
     }
   }
 }
+```
+
+### Choose the VPC endpoint services to be centralized
+
+- Add each service in the ```aws_vpc_endpoint_services``` variable.
+
+Example:
+
+```terraform
+aws_vpc_endpoint_services = [
+  "ec2",
+  "ec2messages",
+  "ssm",
+  "ssmmessages"
+]
 ```
 
 ### Choose the Availability Zones to be used by VPCs across all accounts
