@@ -109,12 +109,12 @@ variable "aws_vpc_endpoint_services" {
   "List with the VPC endpoint services to be centralized in the network account."
   Example:
     ```
-  [
-    "ec2",
-    "ec2messages",
-    "ssm",
-    "ssmmessages"
-  ]
+    [
+      "ec2",
+      "ec2messages",
+      "ssm",
+      "ssmmessages"
+    ]
     ```
 EOF
   type        = list(string)
@@ -153,10 +153,10 @@ variable "aws_dx_info" {
   "Object with Direct Connect information to be used in AWS regions."
   Example:
     ```
-  {
-    gateway_name = "aws-dx-gateway"
-    bgp_asn      = "64550"
-  }
+    {
+      gateway_name = "aws-dx-gateway"
+      bgp_asn      = "64550"
+    }
     ```
 EOF
   type        = map(string)

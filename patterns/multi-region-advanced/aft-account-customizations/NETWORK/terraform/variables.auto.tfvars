@@ -50,9 +50,9 @@ aws_vpc_endpoint_services = [
   "ec2",
   "ec2messages",
   "ssm",
-  "ssmmessages"
+  "ssmmessages",
+  "kms"
 ]
-
 
 aws_vpn_info = {
   primary_region = {

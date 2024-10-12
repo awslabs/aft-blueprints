@@ -10,13 +10,19 @@ variable "vpc_id" {
   type = string
 }
 
-variable "allowed_cidr" {
-  type = list(string)
+variable "vpc_cidr" {
+  type = string
 }
 
 variable "vpc_name" {
   type    = string
-  default = ""
+  default = "vpc"
+}
+
+variable "allowed_cidr" {
+  description = "Additional CIDRs to be added in the interface endpoints security group."
+  type        = list(string)
+  default     = []
 }
 
 variable "interface_endpoints" {

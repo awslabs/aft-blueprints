@@ -5,31 +5,30 @@
 ##############        Inbound Resolver       ##############
 ###########################################################
 resource "aws_security_group" "inbound" {
-  name        = "sgp-${var.route53_resolver_name}-inbound"
-  description = "Allow DNS Traffic in to Route53 Inbound Resolver Endpoint"
+  name_prefix = "sgp-resolver-inbound-endpoint-"
+  description = "Allow DNS Traffic to Route 53 Inbound Resolver Endpoint"
   vpc_id      = var.vpc_id
-  ingress {
-    description = "RFC1918 communication"
-    from_port   = 53
-    to_port     = 53
-    protocol    = "UDP"
-    cidr_blocks = var.rfc1918_cidr
-  }
-  egress {
-    description = "Allow egress for all destinations"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+
   tags = merge(
     { "Name" = "sgp-${var.route53_resolver_name}-inbound" },
     var.tags
   )
+
   lifecycle {
     # Necessary if changing 'name' or 'name_prefix' properties.
     create_before_destroy = true
   }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "inbound" {
+  for_each = toset(var.rfc1918_cidr)
+
+  security_group_id = aws_security_group.inbound.id
+  description       = "Allow DNS communication from private range"
+  cidr_ipv4         = each.value
+  from_port         = 53
+  ip_protocol       = "udp"
+  to_port           = 53
 }
 
 resource "aws_route53_resolver_endpoint" "inbound" {
@@ -53,24 +52,28 @@ resource "aws_route53_resolver_endpoint" "inbound" {
 ##############       Outbound Resolver       ##############
 ###########################################################
 resource "aws_security_group" "outbound" {
-  name        = "sgp-${var.route53_resolver_name}-outbound"
-  description = "Allow DNS Traffic in to Route53 Outbound Resolver Endpoint"
+  name_prefix = "sgp-resolver-outbound-endpoint-"
+  description = "Allow DNS Traffic from Route 53 Outbound Resolver Endpoint"
   vpc_id      = var.vpc_id
-  egress {
-    description = "Allow egress for all destinations"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+
   tags = merge(
     { "Name" = "sgp-${var.route53_resolver_name}-outbound" },
     var.tags
   )
+
   lifecycle {
     # Necessary if changing 'name' or 'name_prefix' properties.
     create_before_destroy = true
   }
+}
+
+resource "aws_vpc_security_group_egress_rule" "outbound" {
+  security_group_id = aws_security_group.outbound.id
+  description       = "Allow DNS communication"
+  from_port         = 53
+  to_port           = 53
+  ip_protocol       = "udp"
+  cidr_ipv4         = "0.0.0.0/0"
 }
 
 resource "aws_route53_resolver_endpoint" "outbound" {
