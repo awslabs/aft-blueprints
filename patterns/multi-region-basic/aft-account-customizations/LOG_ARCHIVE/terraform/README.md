@@ -1,6 +1,31 @@
-# Log Archive Customization - Multi Region Advanced
+# Log Archive Customization - Multi Region Basic
+
+This Terraform code is designed to set up additional AWS resources in the Control Tower's Log Archive account, extending the centralized logging hub to more services.
+
+The following resources will be deployed by this solution (not limited to those below):
+
+- AWS S3 Bucket for VPC Flow Logs
+
+For more information, see the [Centralized Logs](https://awslabs.github.io/aft-blueprints/architectures/centralized-logs) architecture page.
 
 ## How to use
+
+Define the regions you want to use in the `aft-config.j2` file:
+
+```jinja
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    },
+    {
+      "key": "secondary",
+      "name": "us-west-2"
+    }
+  ]
+%}
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

@@ -129,5 +129,6 @@ nav:
           - Basic: architectures/network-basic.md
           - Intermediate: architectures/network-intermediate.md
           - Advanced: architectures/network-advanced.md
+      - Centralized Logs: architectures/centralized-logs.md
       - Security: architectures/security.md
       - Workload Account: architectures/workload-account.md

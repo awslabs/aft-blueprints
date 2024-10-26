@@ -1,6 +1,27 @@
-# Log Archive Customization - Multi Region Advanced
+# Log Archive Customization - Sing Region Basic
+
+This Terraform code is designed to set up additional AWS resources in the Control Tower's Log Archive account, extending the centralized logging hub to more services.
+
+The following resources will be deployed by this solution (not limited to those below):
+
+- AWS S3 Bucket for VPC Flow Logs
+
+For more information, see the [Centralized Logs](https://awslabs.github.io/aft-blueprints/architectures/centralized-logs) architecture page.
 
 ## How to use
+
+Define the region you want to use in the `aft-config.j2` file:
+
+```jinja
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    }
+  ]
+%}
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -16,7 +37,6 @@
 | aws | 5.73.0 |
 | aws.aft-management | 5.73.0 |
 | aws.primary | 5.73.0 |
-| aws.secondary | 5.73.0 |
 
 ## Modules
 
@@ -24,7 +44,6 @@
 |------|--------|---------|
 | aft\_custom\_fields | ../../common/modules/custom_fields | n/a |
 | primary\_vpc\_flow\_logs | ../../common/modules/storage/s3_bucket_for_logs | n/a |
-| secondary\_vpc\_flow\_logs | ../../common/modules/storage/s3_bucket_for_logs | n/a |
 
 ## Resources
 
@@ -32,10 +51,8 @@
 |------|------|
 | [aws_ssm_parameter.account_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.primary_vpc_flow_logs_s3_bucket_name](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_ssm_parameter.secondary_vpc_flow_logs_s3_bucket_name](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.primary](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
-| [aws_region.secondary](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
