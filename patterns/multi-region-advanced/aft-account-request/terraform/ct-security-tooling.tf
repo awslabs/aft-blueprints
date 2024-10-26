@@ -1,11 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
-module "security" {
+module "ct_security_tooling" {
   source = "./modules/aft-account-request"
 
   control_tower_parameters = {
-    AccountEmail = "my-org+security@customer.com"
+    AccountEmail = "my-org+ct-security-tooling@customer.com"
     AccountName  = "Security Tooling"
     # Syntax for top-level OU
     ManagedOrganizationalUnit = "Security"
@@ -22,7 +22,7 @@ module "security" {
 
   change_management_parameters = {
     change_requested_by = "user"
-    change_reason       = "Testing the account vending process"
+    change_reason       = "Onboarding the Control Tower Security Tooling account to AFT"
   }
 
   custom_fields = {

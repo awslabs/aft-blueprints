@@ -36,12 +36,14 @@ We have also prepared an architecture diagram with our recommended structure of 
 
 Check all the available patterns at [Patterns](./patterns.md){:target="_blank"} section. They all have different components and architectures, from single-region landing zone to multi-region with centralized network inspection. Choose the right one for your needs, but keep in mind that depending on the pattern, the final cost of the environment may be higher or lower.
 
-## Understanding the Landing Zone parameters
+## Understanding Landing Zone parameters
 
 To automate the deployment of a landing zone, the patterns leverage [AWS Systems Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html) (SSM) parameters to guide the creation of resources across a multi-account environment. The following content outlines the specific parameters that are created in each account for this purpose.
 
 **AFT management account:**
 
+- `/org/core/accounts/ct-log-archive`:  Control Tower Log Archive Account Id.
+- `/org/core/accounts/ct-security-tooling`:  Control Tower Security Tooling Account Id.
 - `/org/core/accounts/network`:  Network Account Id.
 - `/org/core/accounts/backup`: Backup Account Id.
 - `/org/core/accounts/identity`: Identity Account Id.
@@ -52,6 +54,11 @@ To automate the deployment of a landing zone, the patterns leverage [AWS Systems
 - `/org/core/network/tgw-id`: The Id of the shared Transit Gateway.
 - `/org/core/network/tgw-route-table/{{ network-segment }}`: Transit Gateway route table Id to associate the VPC attachment for network segment (environment).
 - `/org/core/network/tgw-propagation-rules`:  VPC attachment propagation rules for all network segments.
+- `/org/core/network/vpc-flow-logs/s3-bucket-arn`:  S3 bucket ARN for centralized VPC Flow Logs.
+
+**Log Archive account:**
+
+- `/org/core/central-logs/vpc-flow-logs`: S3 bucket ARN for centralized VPC Flow Logs.
 
 ## Preparing AFT repositories
 
@@ -85,21 +92,30 @@ First, access the [aft-blueprints](https://github.com/awslabs/aft-blueprints) re
 
 1. The **aft-account-request** is covered in the next section.
 
+## Onboarding Control Tower shared accounts
+
+AWS Control Tower helps organizations set up dedicated accounts that provide isolated environments for specialized roles. These accounts serve as centralized hubs for management, log archiving, and security auditing within the organization. See more in [About AWS accounts in AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/accounts.html). The first account we must onboard into AFT are **Log archive account** and **Audit(Security Tooling) account**. Please follow steps below to onboard those accounts:
+
+1. Edit the respective files for each account, `ct-log-archive.tf` and `ct-security-tooling.tf`, and replace the values in the `control_tower_parameters`, `account_tags` and `change_management_parameters` with your own values. Please, make sure your specify the exact **AccountEmail** value for existing accounts, do not provide new email values for them.
+2. Once you have completed the previous step, commit and push the changes to **aft-account-request** repository.
+3. Go to the AFT management account and wait for each account-related pipeline to complete before proceeding to the next step. If any of them fail, try running the pipeline again. This should take a few minutes.
+
 ## Launching core accounts
 
 Now, you should be able to launch your core accounts, one for each core architecture: Network, Backup and Identity. To do so, please follow steps below:
 
-1. Edit the respective files for each account (`network.tf`, `backup.tf` and `identity.tf`) and replace the values in the `control_tower_parameters`, `account_tags` and `change_management_parameters` with your own values.
-2. Once you have completed the last step, commit and push the changes to your **aft-account-request**.
-3. Go to the AWS Control Tower management account and wait for the three account to be enrolled in AWS Control Tower. It may take 30min or more.
-4. Go back to the AFT management account and wait for each account-related pipeline to complete before proceeding to the next step. If any of them fail, try running the pipeline again.
+1. For each core account, we made available these account files: `network.tf.hold`, `backup.tf.hold` and `identity.tf.hold`. Please, remove the `.hold` extension for all of them.
+2. Edit the files and replace the values in the `control_tower_parameters`, `account_tags` and `change_management_parameters` with your own values. For these accounts, you must provide new e-mail values in order for AFT to launch new accounts.
+3. Once you have completed the previous step, commit and push the changes to **aft-account-request** repository.
+4. Go to the AWS Control Tower management account and wait for the three account to be enrolled. It may take 30min or more.
+5. Go back to the AFT management account and wait for each account-related pipeline to complete before proceeding to the next step. If any of them fail, try running the pipeline again.
 
 ## Launching workload accounts
 
 Before you start launching your workload accounts, please check your three core accounts. Check if all of them have the services deployed and configured according to the chosen pattern.
 
 1. We made available three workload account files: `development.tf.hold`, `stage.tf.hold`and `production.tf.hold`. You can launch any one of them, or all three at the same time, but first remove the `.hold` extension for the ones you are intended to use.
-2. Edit the files that you removed the `.hold` extension, and replace the values in the `control_tower_parameters`, `account_tags` and `change_management_parameters` with your own values.
+2. Edit the files you removed the `.hold` extension, and replace the values in the `control_tower_parameters`, `account_tags` and `change_management_parameters` with your own values.
 3. Go to the AWS Control Tower management account and wait for the three account to be enrolled in AWS Control Tower. It may take 30min or more.
 4. Go back to the AFT management account and wait for each account-related pipeline to complete before proceeding to the next step.
 5. Please, check your new accounts to make sure they are set up correctly.

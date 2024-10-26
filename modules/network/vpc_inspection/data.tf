@@ -47,19 +47,11 @@ data "aws_iam_policy_document" "nfw_kms_policy" {
       ]
     }
   }
-  # statement {
-  #   sid = "Allow use of the key"
-  #   actions = [ 
-  #     "kms:Encrypt*",
-  #     "kms:Decrypt*",
-  #     "kms:ReEncrypt*",
-  #     "kms:GenerateDataKey*",
-  #     "kms:Describe*"
-  #   ]
-  #   resources = ["*"]
-  #   principals {
-  #     type = "AWS"
-  #     identifiers = []
-  #   }
-  # }
+}
+
+data "aws_ssm_parameter" "central_vpc_flow_logs_s3_bucket_arn" {
+  count    = var.enable_central_vpc_flow_logs ? 1 : 0
+  provider = aws.network
+
+  name = "/org/core/network/vpc-flow-logs/s3-bucket-arn"
 }

@@ -15,7 +15,7 @@ module "vpc_egress" {
     module.availability_zones
   ]
 
-  ipam_pool_id                   = var.ipam_pools["${var.region}/shared"].id
+  ipam_pool_id                   = var.ipam_pools["${local.region}/shared"].id
   az_set                         = var.availability_zones
   transit_gateway_id             = module.tgw.transit_gateway_id
   transit_gateway_route_table_id = module.tgw.route_table_id["egress"]
@@ -30,7 +30,7 @@ module "vpc_endpoints" {
     module.vpc_egress
   ]
 
-  ipam_pool_id                   = var.ipam_pools["${var.region}/shared"].id
+  ipam_pool_id                   = var.ipam_pools["${local.region}/shared"].id
   az_set                         = var.availability_zones
   transit_gateway_id             = module.tgw.transit_gateway_id
   transit_gateway_route_table_id = module.tgw.route_table_id["shared"]

@@ -12,3 +12,8 @@ data "aws_region" "primary" {
 data "aws_region" "secondary" {
   provider = aws.secondary
 }
+
+data "aws_ssm_parameter" "ct_log_archive_account_id" {
+  provider = aws.aft-management
+  name     = "/org/core/accounts/ct-log-archive"
+}

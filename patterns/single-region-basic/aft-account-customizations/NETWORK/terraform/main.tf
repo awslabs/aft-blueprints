@@ -21,10 +21,10 @@ resource "aws_ssm_parameter" "account_id" {
 module "primary_region" {
   source = "./modules/region"
   providers = {
-    aws = aws.primary
+    aws             = aws.primary
+    aws.log-archive = aws.log-archive-primary
   }
 
-  region             = data.aws_region.primary.name
   availability_zones = var.aws_availability_zones.primary_region
   ipam_pools         = module.ipam.pools_level_2
   tags               = local.tags

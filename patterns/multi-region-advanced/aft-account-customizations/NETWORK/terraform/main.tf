@@ -21,10 +21,10 @@ resource "aws_ssm_parameter" "account_id" {
 module "primary_region" {
   source = "./modules/region"
   providers = {
-    aws = aws.primary
+    aws             = aws.primary
+    aws.log-archive = aws.log-archive-primary
   }
 
-  region                = data.aws_region.primary.name
   availability_zones    = var.aws_availability_zones.primary_region
   tgw_amazon_side_asn   = "64513"
   ipam_pools            = module.ipam.pools_level_2
@@ -38,10 +38,10 @@ module "primary_region" {
 module "secondary_region" {
   source = "./modules/region"
   providers = {
-    aws = aws.secondary
+    aws             = aws.secondary
+    aws.log-archive = aws.log-archive-secondary
   }
 
-  region                = data.aws_region.secondary.name
   availability_zones    = var.aws_availability_zones.secondary_region
   tgw_amazon_side_asn   = "64514"
   ipam_pools            = module.ipam.pools_level_2

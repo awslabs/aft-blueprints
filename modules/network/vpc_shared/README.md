@@ -18,6 +18,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
+| central\_vpc\_flow\_logs | ../flow_logs | n/a |
+| local\_vpc\_flow\_logs | ../flow_logs | n/a |
 | route53\_rules\_association | ../../dns/route53_rules_association | n/a |
 | tgw\_vpc\_attachment | ../tgw_vpc_attachment | n/a |
 | vpce | ../vpce | n/a |
@@ -26,12 +28,9 @@
 
 | Name | Type |
 |------|------|
-| [aws_cloudwatch_log_group.log](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_default_network_acl.default_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_network_acl) | resource |
 | [aws_default_route_table.default_rtb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_route_table) | resource |
 | [aws_default_security_group.default_sgp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group) | resource |
-| [aws_flow_log.log](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/flow_log) | resource |
-| [aws_iam_role.log](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_route.subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route_table.subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
 | [aws_route_table_association.subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
@@ -41,6 +40,7 @@
 | [aws_availability_zone.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zone) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [aws_ssm_parameter.azs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.central_vpc_flow_logs_s3_bucket_arn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_vpc_ipam_pool.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc_ipam_pool) | data source |
 
 ## Inputs
@@ -49,8 +49,9 @@
 |------|-------------|------|---------|:--------:|
 | associate\_dns\_rules | Should be true to associate shared Route 53 DNS rules | `bool` | `true` | no |
 | availability\_zones | List of availability zones defined in the network account | `list(string)` | `[]` | no |
+| enable\_central\_vpc\_flow\_logs | Should be true to enable centralized vpc flow logs to S3 bucket. | `bool` | `false` | no |
 | enable\_dns\_hostnames | Should be true to enable DNS hostnames in the VPC | `bool` | `true` | no |
-| enable\_flow\_log | Should be true to enable vpc flow log | `bool` | `true` | no |
+| enable\_vpc\_flow\_logs | Should be true to enable vpc flow logs to a local cloudwatch log group. | `bool` | `true` | no |
 | environment | Environment name. Will be used to define ipam pool and tgw route tables configuration. | `string` | `"shared"` | no |
 | gateway\_endpoints | A list of interface endpoints | `list(string)` | `[]` | no |
 | identifier | VPC identifier. If not entered, a random id will be generated. | `string` | `""` | no |

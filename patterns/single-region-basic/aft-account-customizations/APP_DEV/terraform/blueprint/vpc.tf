@@ -8,17 +8,20 @@ module "vpc" {
     aws.network = aws.network
   }
 
-  identifier            = lookup(var.vpc, "identifier", "")
-  environment           = lookup(var.vpc, "environment", null)
-  vpc_size              = lookup(var.vpc, "vpc_size", null)
-  create_public_subnets = lookup(var.vpc, "create_public_subnets", false)
-  create_data_subnets   = lookup(var.vpc, "create_data_subnets", false)
-  availability_zones    = ["az1"]
-  enable_flow_log       = false
+  identifier                   = lookup(var.vpc, "identifier", "")
+  environment                  = lookup(var.vpc, "environment", null)
+  vpc_size                     = lookup(var.vpc, "vpc_size", null)
+  create_public_subnets        = lookup(var.vpc, "create_public_subnets", false)
+  create_data_subnets          = lookup(var.vpc, "create_data_subnets", false)
+  enable_vpc_flow_logs         = lookup(var.vpc, "enable_vpc_flow_logs", true)
+  enable_central_vpc_flow_logs = false
+  availability_zones           = ["az1"]
   interface_endpoints = [
     "ssm",
     "ssmmessages",
-    "ec2messages"
+    "ec2messages",
+    "logs",
+    "kms"
   ]
   gateway_endpoints = ["s3"]
   tags              = var.tags

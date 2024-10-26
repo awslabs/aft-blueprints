@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 locals {
+  region = data.aws_region.current.name
   tgw_route_tables = [
     "shared",
     "prod",
@@ -21,7 +22,7 @@ locals {
       domain_name = "on.aws"
     },
     {
-      domain_name = "${var.region}.amazonaws.com"
+      domain_name = "${local.region}.amazonaws.com"
     }
   ]
 }

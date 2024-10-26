@@ -8,9 +8,9 @@ resource "aws_ssm_parameter" "account_id" {
   # checkov:skip=CKV_AWS_337:This SSM parameter is not a SecureString and there is no need to encrypt it using KMS
   provider = aws.aft-management
 
-  name        = "/org/core/accounts/security"
+  name        = "/org/core/accounts/ct-security-tooling"
   type        = "String"
-  description = "Security Tooling account Id"
+  description = "Control Tower Security Tooling account Id"
   value       = data.aws_caller_identity.current.account_id
   tags        = local.tags
 }

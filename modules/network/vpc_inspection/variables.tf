@@ -88,6 +88,18 @@ variable "network_firewall_config" {
 EOF
 }
 
+variable "enable_vpc_flow_logs" {
+  description = "Should be true to enable vpc flow logs to a local cloudwatch log group."
+  type        = bool
+  default     = true
+}
+
+variable "enable_central_vpc_flow_logs" {
+  description = "Should be true to enable centralized vpc flow logs to S3 bucket."
+  type        = bool
+  default     = false
+}
+
 variable "vpc_tags" {
   description = "Tags for all resources within the VPC"
   type        = map(string)

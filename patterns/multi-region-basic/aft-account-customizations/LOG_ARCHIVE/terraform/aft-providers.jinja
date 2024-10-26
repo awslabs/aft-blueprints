@@ -1,0 +1,46 @@
+## Auto generated providers.tf ##
+## Updated on: {{ timestamp }} ##
+
+provider "aws" {
+  region = "{{ provider_region }}"
+  assume_role {
+    role_arn    = "{{ target_admin_role_arn }}"
+  }
+  default_tags {
+    tags = {
+      managed_by = "AFT"
+    }
+  }
+}
+
+## Additional providers
+
+provider "aws" {
+  region = "{{ provider_region }}"
+  alias  = "aft-management"
+  assume_role {
+    role_arn    = "{{ aft_admin_role_arn }}"
+  }
+  default_tags {
+    tags = {
+      managed_by = "AFT"
+    }
+  }
+}
+
+{% import 'aft-config.j2' as config %}
+
+{% for region in config.regions %}
+provider "aws" {
+  region = "{{ region['name'] }}"
+  alias  = "{{ region['key'] }}"
+  assume_role {
+    role_arn    = "{{ target_admin_role_arn }}"
+  }
+  default_tags {
+    tags = {
+      managed_by = "AFT"
+    }
+  }
+}
+{% endfor %}

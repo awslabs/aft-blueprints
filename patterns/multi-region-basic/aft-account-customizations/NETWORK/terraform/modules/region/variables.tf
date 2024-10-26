@@ -1,11 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-variable "region" {
-  description = "Region name."
-  type        = string
-}
-
 variable "region_cidr_blocks" {
   description = "List with IPAM region CIDR Blocks"
   type        = list(string)

@@ -1,11 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-variable "region" {
-  description = "Region name."
-  type        = string
-}
-
 variable "availability_zones" {
   description = <<-EOF
   "Map of availability zones allowed to be used in this region."

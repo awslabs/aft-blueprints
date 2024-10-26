@@ -51,6 +51,18 @@ variable "private_routes" {
   default     = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
 }
 
+variable "enable_vpc_flow_logs" {
+  description = "Should be true to enable vpc flow logs to a local cloudwatch log group."
+  type        = bool
+  default     = true
+}
+
+variable "enable_central_vpc_flow_logs" {
+  description = "Should be true to enable centralized vpc flow logs to S3 bucket."
+  type        = bool
+  default     = false
+}
+
 variable "vpc_tags" {
   description = "Tags for all resources within the VPC"
   type        = map(string)

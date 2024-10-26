@@ -74,10 +74,16 @@ variable "create_data_subnets" {
   default     = false
 }
 
-variable "enable_flow_log" {
-  description = "Should be true to enable vpc flow log"
+variable "enable_vpc_flow_logs" {
+  description = "Should be true to enable vpc flow logs to a local cloudwatch log group."
   type        = bool
   default     = true
+}
+
+variable "enable_central_vpc_flow_logs" {
+  description = "Should be true to enable centralized vpc flow logs to S3 bucket."
+  type        = bool
+  default     = false
 }
 
 variable "associate_dns_rules" {
