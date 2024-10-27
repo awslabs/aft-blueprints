@@ -25,3 +25,8 @@ output "route_tables" {
   description = "Map of route table IDs grouped by name"
   value       = { for sub in var.subnets : sub.name => [for subnet in local.subnets : aws_route_table.subnets[subnet.key].id if subnet.name == sub.name] }
 }
+
+output "tgw_attachment_id" {
+  description = "The ID of the transit gateway attachment"
+  value       = module.tgw_vpc_attachment.transit_gateway_attachment_id
+}

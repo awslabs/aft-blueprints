@@ -4,7 +4,7 @@ This getting started guide will walk you through the process of deploying the pa
 
 ## Prerequisites
 
-AFT Blueprints assumes you already have an AWS account with AWS Control Tower and [AWS IAM Identity Center](https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html) set up, plus an AWS account within the same AWS organization, dedicated to deploy and manage AFT. If you don't have it, see the guidelines below:
+AFT Blueprints assumes you already have an AWS account with [AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html) with [all features](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html) enabled, [AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html) and [AWS IAM Identity Center](https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html) set up, plus an AWS account within the same organization dedicated to deploy and manage AFT. If you don't have it, see the guidelines below:
 
 - To learn how to set up and configure AWS Control Tower in your environment, please follow the [Getting started with AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html){:target="_blank"}.
 - To launch a new AWS account to serve as your AFT management account, please follow the [Provision accounts with AWS Service Catalog Account Factory](https://docs.aws.amazon.com/controltower/latest/userguide/provision-as-end-user.html){:target="_blank"} in the AWS Control Tower documentation.
@@ -35,6 +35,19 @@ We have also prepared an architecture diagram with our recommended structure of 
 ## Selecting your pattern
 
 Check all the available patterns at [Patterns](./patterns.md){:target="_blank"} section. They all have different components and architectures, from single-region landing zone to multi-region with centralized network inspection. Choose the right one for your needs, but keep in mind that depending on the pattern, the final cost of the environment may be higher or lower.
+
+## Understanding AWS Organizations interactions
+
+To ensure that all necessary services have trusted access within the organization, we make use of the `pre-api-helpers.sh` script and AWS CLI commands to enable them. Unfortunately, Terraform usually doesn't provide resources to enable services with all the specific settings needed for each one. However, Terraform does provide resources for delegating administration to member accounts, most of the time. Therefore, we set up delegated administrator accounts whenever possible and as long as the service allows. see below the list of services we enable trusted access in AWS Organizations:
+
+- ram.amazonaws.com
+- ipam.amazonaws.com
+- backup.amazonaws.com (including backup policy)
+- access-analyzer.amazonaws.com
+- sso.amazonaws.com (only delegated administration)
+- guardduty.amazonaws.com
+- malware-protection.guardduty.amazonaws.com
+- securityhub.amazonaws.com
 
 ## Understanding Landing Zone parameters
 

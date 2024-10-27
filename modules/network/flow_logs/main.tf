@@ -35,6 +35,8 @@ resource "aws_flow_log" "this" {
 ###########################################################
 
 resource "aws_cloudwatch_log_group" "cloudwatch" {
+  #checkov:skip=CKV_AWS_338: The retention period is defined using a variable. In this case, the logs refer to network traffic and 1 year of retention will increase the cost.
+  # checkov:skip=CKV_AWS_158:Log group data is always encrypted in CloudWatch Logs. By default, CloudWatch Logs uses server-side encryption for the log data at rest.
   count = var.destination_type == "cloud-watch-logs" ? 1 : 0
 
   name              = lookup(var.cloudwatch_log_group, "name", "/aws/vpc-flow-logs/${var.resource_name}")

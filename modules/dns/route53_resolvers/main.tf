@@ -5,12 +5,12 @@
 ##############        Inbound Resolver       ##############
 ###########################################################
 resource "aws_security_group" "inbound" {
-  name_prefix = "sgp-resolver-inbound-endpoint-"
+  name_prefix = "${var.route53_resolver_name}-inbound-sgp-"
   description = "Allow DNS Traffic to Route 53 Inbound Resolver Endpoint"
   vpc_id      = var.vpc_id
 
   tags = merge(
-    { "Name" = "sgp-${var.route53_resolver_name}-inbound" },
+    { "Name" = "${var.route53_resolver_name}-inbound-sgp" },
     var.tags
   )
 
@@ -52,12 +52,12 @@ resource "aws_route53_resolver_endpoint" "inbound" {
 ##############       Outbound Resolver       ##############
 ###########################################################
 resource "aws_security_group" "outbound" {
-  name_prefix = "sgp-resolver-outbound-endpoint-"
+  name_prefix = "${var.route53_resolver_name}-outbound-sgp-"
   description = "Allow DNS Traffic from Route 53 Outbound Resolver Endpoint"
   vpc_id      = var.vpc_id
 
   tags = merge(
-    { "Name" = "sgp-${var.route53_resolver_name}-outbound" },
+    { "Name" = "${var.route53_resolver_name}-outbound-sgp" },
     var.tags
   )
 
@@ -97,7 +97,7 @@ resource "aws_route53_resolver_endpoint" "outbound" {
 ##############         Resolver Rules        ##############
 ###########################################################
 resource "aws_route53_resolver_rule" "forward" {
-  for_each   = { for rule in local.rules : rule.domain_name => rule }
+  for_each   = local.rules
   depends_on = [aws_route53_resolver_endpoint.inbound]
 
   domain_name          = each.value.domain_name
@@ -119,7 +119,7 @@ resource "aws_route53_resolver_rule" "forward" {
 }
 
 resource "aws_route53_resolver_rule_association" "forward" {
-  for_each = { for rule in local.rules : rule.domain_name => rule if rule.associate_to_vpc }
+  for_each = { for i, rule in local.rules : rule.domain_name => i if rule.associate_to_vpc }
 
   resolver_rule_id = aws_route53_resolver_rule.forward[each.value.domain_name].id
   vpc_id           = var.vpc_id
@@ -137,8 +137,8 @@ resource "aws_ram_principal_association" "this" {
 }
 
 resource "aws_ram_resource_association" "this" {
-  for_each = { for rule in local.rules : rule.domain_name => rule }
+  for_each = local.rules
 
-  resource_arn       = aws_route53_resolver_rule.forward[each.value.domain_name].arn
+  resource_arn       = aws_route53_resolver_rule.forward[each.key].arn
   resource_share_arn = aws_ram_resource_share.this.arn
 }

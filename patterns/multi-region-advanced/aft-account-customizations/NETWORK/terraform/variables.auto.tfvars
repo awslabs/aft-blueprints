@@ -47,10 +47,10 @@ aws_availability_zones = {
 }
 
 aws_vpc_endpoint_services = [
-  "ec2",
-  "ec2messages",
   "ssm",
   "ssmmessages",
+  "ec2messages",
+  "logs",
   "kms"
 ]
 

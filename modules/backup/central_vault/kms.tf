@@ -19,6 +19,7 @@ resource "aws_kms_key" "backup" {
 data "aws_iam_policy_document" "kms" {
   #checkov:skip=CKV_AWS_111:This is KMS resource policy and hence using '*' for resources
   #checkov:skip=CKV_AWS_109:This is KMS resource policy and hence using '*' for resources
+  #checkov:skip=CKV_AWS_356:This is KMS resource policy and hence using '*' for resources
   statement {
     sid       = "Enable IAM User Permissions"
     actions   = ["kms:*"]

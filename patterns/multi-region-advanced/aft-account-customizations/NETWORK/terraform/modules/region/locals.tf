@@ -17,12 +17,12 @@ locals {
     stage  = ["shared", "inspection"]
     dev    = ["shared", "inspection"]
   }
-  dns_resolver_rules = [
-    {
+  dns_resolver_rules = {
+    phz = {
       domain_name = "on.aws"
-    },
-    {
+    }
+    vpce = {
       domain_name = "${local.region}.amazonaws.com"
     }
-  ]
+  }
 }

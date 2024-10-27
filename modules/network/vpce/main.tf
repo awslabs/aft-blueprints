@@ -4,7 +4,7 @@
 resource "aws_security_group" "endpoints" {
   count = length(var.interface_endpoints.services) > 0 ? 1 : 0
 
-  name_prefix = "sgp-${var.vpc_name}-endpoints-"
+  name_prefix = "${var.vpc_name}-endpoints-sgp-"
   description = "Allow endpoints communication"
   vpc_id      = var.vpc_id
 
@@ -92,7 +92,7 @@ resource "aws_vpc_endpoint" "gateway" {
   vpc_endpoint_type = "Gateway"
   route_table_ids   = var.gateway_endpoints.route_table_ids
   tags = merge(
-    { "Name" = "${var.vpc_name}-${each.value}-endpoint" },
+    { "Name" = "${var.vpc_name}-${each.value}-gw-endpoint" },
     var.tags
   )
   timeouts {

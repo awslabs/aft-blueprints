@@ -4,8 +4,9 @@
 resource "aws_sns_topic" "notify" {
   count = var.enable_backup_notifications ? 1 : 0
 
-  name         = "aws-backup-notifications"
-  display_name = "aws-backup-notifications"
+  name              = "aws-backup-notifications"
+  display_name      = "aws-backup-notifications"
+  kms_master_key_id = "alias/aws/sns"
 }
 
 resource "aws_sns_topic_policy" "notify" {

@@ -14,7 +14,7 @@ resource "aws_vpc" "vpc" {
   )
 }
 
-resource "aws_default_route_table" "default_rtb" {
+resource "aws_default_route_table" "default" {
   default_route_table_id = aws_vpc.vpc.default_route_table_id
   route                  = []
   tags = merge(
@@ -23,7 +23,7 @@ resource "aws_default_route_table" "default_rtb" {
   )
 }
 
-resource "aws_default_security_group" "default_sgp" {
+resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.vpc.id
   lifecycle {
     create_before_destroy = true
@@ -34,7 +34,7 @@ resource "aws_default_security_group" "default_sgp" {
   )
 }
 
-resource "aws_default_network_acl" "default_acl" {
+resource "aws_default_network_acl" "default" {
   default_network_acl_id = aws_vpc.vpc.default_network_acl_id
   egress {
     protocol   = -1

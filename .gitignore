@@ -256,3 +256,6 @@ $RECYCLE.BIN/
 
 # Zip files
 **/*.zip
+
+# Checkov
+**/checkov*

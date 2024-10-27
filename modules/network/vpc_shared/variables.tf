@@ -51,6 +51,28 @@ variable "availability_zones" {
   default = []
 }
 
+variable "az_set" {
+  description = <<-EOF
+  "Map of availability zones. It overrides the variable availability_zones"
+  Example:
+    ```
+    az_set = {
+      az1 = "us-east-1a"
+      az2 = "us-east-1b"
+      az3 = "us-east-1c"
+    }
+    ```
+EOF
+  type        = map(string)
+  validation {
+    condition = alltrue(
+      [for az in keys(var.az_set) : true if contains(["az1", "az2", "az3", "az4"], az)]
+    )
+    error_message = "You must specify a list with valid availability zones allowed in this region, such as az1, az2, az3 and az4."
+  }
+  default = {}
+}
+
 variable "subnets" {
   description = "The number of subnets per AZ"
   type = list(object(
@@ -68,19 +90,31 @@ variable "subnets" {
 variable "tgw_id" {
   description = "Transit Gateway Id"
   type        = string
-  default     = ""
+  default     = null
+}
+
+variable "use_tgw_id_parameter" {
+  description = "Use the Transit Gateway Id from the parameter store. Overrides tgw_id variable."
+  type        = bool
+  default     = true
 }
 
 variable "tgw_rt_association_id" {
   description = "Transit Gateway route table Id that should receive the VPC attachment association"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "tgw_rt_propagations" {
-  description = "List with Transit Gateway route table that should receive the VPC attachment propagation"
-  type        = list(string)
-  default     = []
+  description = "Transit Gateway route table to propagations. k => v, name => route_table_id"
+  type        = map(string)
+  default     = {}
+}
+
+variable "use_propagation_rules" {
+  description = "Use the Transit Gateway route table propagation rules, based on the associated route table"
+  type        = bool
+  default     = true
 }
 
 variable "enable_dns_hostnames" {

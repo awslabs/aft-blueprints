@@ -26,13 +26,13 @@ variable "rfc1918_cidr" {
 }
 
 variable "rules" {
-  type = list(object(
+  type = map(object(
     {
       domain_name      = string
       external_dns_ips = optional(list(string), [])
     }
   ))
-  description = "The domain_name and external_dns_ips (if applicable) for the resolver rule to forward requests."
+  description = "The domain_name and external_dns_ips (if applicable) for resolver rule to forward DNS requests."
 }
 
 variable "tags" {

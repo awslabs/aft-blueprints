@@ -4,10 +4,6 @@
 ########################################
 #######      IPAM Delegation     #######
 ########################################
-resource "aws_ram_sharing_with_organization" "ram" {
-  provider = aws.org-management
-}
-
 resource "aws_vpc_ipam_organization_admin_account" "ipam" {
   provider = aws.org-management
 

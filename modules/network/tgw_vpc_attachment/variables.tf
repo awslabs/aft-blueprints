@@ -20,7 +20,13 @@ variable "subnet_ids" {
 variable "tgw_id" {
   description = "Transit Gateway Id"
   type        = string
-  default     = ""
+  default     = null
+}
+
+variable "use_tgw_id_parameter" {
+  description = "Use the Transit Gateway Id from the parameter store. Overrides tgw_id variable."
+  type        = bool
+  default     = true
 }
 
 variable "tgw_rt_association_name" {
@@ -32,11 +38,17 @@ variable "tgw_rt_association_name" {
 variable "tgw_rt_association_id" {
   description = "Transit Gateway route table Id to be associated with the vpc attachment."
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "tgw_rt_propagations" {
-  description = "Transit Gateway route table propagation rules, based on the associated route table."
-  type        = list(string)
-  default     = []
+  description = "Transit Gateway route table to propagations. k => v, name => route_table_id"
+  type        = map(string)
+  default     = {}
+}
+
+variable "use_propagation_rules" {
+  description = "Use the Transit Gateway route table propagation rules, based on the associated route table."
+  type        = bool
+  default     = true
 }

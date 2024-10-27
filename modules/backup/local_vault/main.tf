@@ -16,8 +16,9 @@ resource "aws_backup_vault_policy" "backup" {
 }
 
 data "aws_iam_policy_document" "vault" {
-  #checkov:skip=CKV_AWS_111:This is KMS resource policy and hence using '*' for resources
-  #checkov:skip=CKV_AWS_109:This is KMS resource policy and hence using '*' for resources
+  #checkov:skip=CKV_AWS_111:This is AWS Backup Vault resource policy and hence using '*' for resources
+  #checkov:skip=CKV_AWS_109:This is AWS Backup Vault resource policy and hence using '*' for resources
+  #checkov:skip=CKV_AWS_356:This is AWS Backup Vault resource policy and hence using '*' for resources
   statement {
     sid       = "Allow backup restore from central account"
     actions   = ["backup:CopyIntoBackupVault"]

@@ -4,7 +4,7 @@
 locals {
   id          = var.identifier == "" ? random_string.id[0].result : var.identifier
   region      = data.aws_region.current.name
-  vpc_name    = "${var.environment}-vpc-${local.id}"
+  vpc_name    = "vpc-${var.environment}-${local.id}"
   cidrsubnets = cidrsubnets(aws_vpc.this.cidr_block, 1, 2, 2)
   newbits     = length(var.availability_zones) < 3 ? 1 : 2
   vpc_size    = local.vpc_size_map[var.vpc_size]

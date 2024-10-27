@@ -11,9 +11,11 @@ module "tgw_vpc_attachment" {
   vpc_name                = local.vpc_name
   subnet_ids              = [for sub in local.subnets : aws_subnet.subnets[sub.key].id if sub.tgw_attachment == true]
   tgw_id                  = var.tgw_id
+  use_tgw_id_parameter    = var.use_tgw_id_parameter
   tgw_rt_association_name = var.environment
   tgw_rt_association_id   = var.tgw_rt_association_id
   tgw_rt_propagations     = var.tgw_rt_propagations
+  use_propagation_rules   = var.use_propagation_rules
 }
 
 module "vpce" {

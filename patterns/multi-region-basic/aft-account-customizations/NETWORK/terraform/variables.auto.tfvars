@@ -45,3 +45,11 @@ aws_availability_zones = {
     az2 = "us-west-2b"
   }
 }
+
+aws_vpc_endpoint_services = [
+  "ssm",
+  "ssmmessages",
+  "ec2messages",
+  "logs",
+  "kms"
+]

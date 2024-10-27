@@ -20,11 +20,11 @@ resource "aws_ec2_transit_gateway_route_table_association" "this" {
   provider = aws.network
 
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.this.id
-  transit_gateway_route_table_id = local.tgw_rt_association
+  transit_gateway_route_table_id = local.tgw_rt_association_id
 }
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "this" {
-  for_each = { for rt in local.tgw_rt_propagations : rt => data.aws_ssm_parameter.rt_propagations[rt].insecure_value }
+  for_each = local.tgw_rt_propagations
   provider = aws.network
 
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.this.id

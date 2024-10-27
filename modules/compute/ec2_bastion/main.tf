@@ -34,7 +34,7 @@ resource "aws_instance" "bastion_linux" {
 }
 
 resource "aws_security_group" "bastion" {
-  name_prefix = "sgp-ec2-bastion-"
+  name_prefix = "ec2-bastion-sgp-"
   description = "Access to bastion instance: allow SSH and ICMP access from appropriate location. Allow all traffic from VPC CIDR"
   vpc_id      = var.vpc_id
   ingress {
@@ -66,7 +66,7 @@ resource "aws_security_group" "bastion" {
     protocol    = "-1"
   }
   tags = merge(
-    { "Name" = "sgp-ec2-${var.identifier}-bastion" },
+    { "Name" = "ec2-${var.identifier}-bastion-sgp" },
     var.tags
   )
   lifecycle {
