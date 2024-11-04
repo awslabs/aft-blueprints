@@ -24,7 +24,7 @@ module "vpce" {
     services   = var.interface_endpoints
   }
   gateway_endpoints = {
-    route_table_ids = toset(concat(values(aws_route_table.private)[*].id, try([aws_route_table.public.id], [])))
+    route_table_ids = toset(concat(values(aws_route_table.private)[*].id, try([aws_route_table.public[0].id], [])))
     services        = var.gateway_endpoints
   }
 }

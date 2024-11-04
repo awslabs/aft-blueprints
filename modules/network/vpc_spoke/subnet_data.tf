@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 resource "aws_subnet" "data" {
-  for_each = local.azs
+  for_each = var.create_data_subnets ? local.azs : {}
 
   vpc_id                  = aws_vpc.this.id
   cidr_block              = cidrsubnet(local.cidrsubnets[1], local.newbits, each.value.index)
@@ -16,7 +16,7 @@ resource "aws_subnet" "data" {
 }
 
 resource "aws_route_table_association" "data" {
-  for_each = local.azs
+  for_each = var.create_data_subnets ? local.azs : {}
 
   route_table_id = aws_route_table.private[each.key].id
   subnet_id      = aws_subnet.data[each.key].id
