@@ -11,8 +11,8 @@ module "vpc" {
   identifier                   = lookup(var.vpc, "identifier", "")
   environment                  = lookup(var.vpc, "environment", null)
   vpc_size                     = lookup(var.vpc, "vpc_size", null)
-  create_public_subnets        = lookup(var.vpc, "create_public_subnets", false)
-  create_data_subnets          = lookup(var.vpc, "create_data_subnets", false)
+  create_public_subnets        = lookup(var.vpc, "create_public_subnets", true)
+  create_data_subnets          = lookup(var.vpc, "create_data_subnets", true)
   enable_vpc_flow_logs         = lookup(var.vpc, "enable_vpc_flow_logs", true)
   enable_central_vpc_flow_logs = false
   availability_zones           = ["az1", "az2"]
