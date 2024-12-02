@@ -36,7 +36,7 @@ variable "code_connection_provider" {
   type        = string
   default     = "GitHub"
   validation {
-    condition     = contains(["GitHub"], var.code_connection_provider)
+    condition     = contains(["GitHub", "GitHubEnterpriseServer"], var.code_connection_provider)
     error_message = "Valid values for code_connection_provider are: GitHub"
   }
 }
@@ -79,4 +79,34 @@ variable "account_lifecycle_events_source" {
 variable "tags" {
   type    = map(string)
   default = {}
+}
+
+variable "vcs_provider" {
+  description = "Customer VCS Provider - valid inputs are github, or githubenterprise"
+  type        = string
+  default     = "github"
+  validation {
+    condition     = contains(["github", "githubenterprise"], var.vcs_provider)
+    error_message = "Valid values for var: vcs_provider are (github, githubenterprise)."
+  }
+}
+
+variable "github_enterprise_url" {
+  description = "GitHub enterprise URL, if GitHub Enterprise is being used"
+  type        = string
+  default     = "null"
+}
+
+variable "vpc_config" {
+  description = "VPC configuration to set to codebuild projects"
+  type = object({
+    vpc_id          = string
+    subnets         = list(string)
+    security_groups = list(string)
+  })
+  default = {
+    vpc_id          = ""
+    subnets         = []
+    security_groups = []
+  }
 }

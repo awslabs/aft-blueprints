@@ -1,11 +1,32 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-resource "aws_codestarconnections_connection" "conn" {
-  count = var.use_code_connection ? 1 : 0
+# CodeStar connection for github
+resource "aws_codestarconnections_connection" "github" {
+  count         = var.use_code_connection && local.vcs.is_github ? 1 : 0
+  name          = "permission-set-github"
+  provider_type = "GitHub"
+}
 
-  name          = var.code_connection_name
-  provider_type = var.code_connection_provider
+# CodeStar connection for github enterprise
+resource "aws_codestarconnections_connection" "githubenterprise" {
+  count    = var.use_code_connection && local.vcs.is_github_enterprise ? 1 : 0
+  name     = "permission-set-github-ent"
+  host_arn = aws_codestarconnections_host.githubenterprise[0].arn
+}
+
+# CodeStar connection host for github enterprise
+resource "aws_codestarconnections_host" "githubenterprise" {
+  count             = var.use_code_connection && local.vcs.is_github_enterprise ? 1 : 0
+  name              = "permission-set-github-ent-host"
+  provider_endpoint = var.github_enterprise_url
+  provider_type     = "GitHubEnterpriseServer"
+
+  vpc_configuration {
+    security_group_ids = var.vpc_config.security_groups
+    subnet_ids         = var.vpc_config.subnets
+    vpc_id             = var.vpc_config.vpc_id
+  }
 }
 
 resource "aws_codecommit_repository" "pipeline" {
@@ -83,7 +104,7 @@ resource "aws_codepipeline" "main" {
       version          = "1"
       output_artifacts = ["main"]
       configuration = var.use_code_connection ? {
-        ConnectionArn        = aws_codestarconnections_connection.conn[0].arn
+        ConnectionArn        = local.codestar_connection_arn
         FullRepositoryId     = var.repository_name
         BranchName           = var.branch_name
         OutputArtifactFormat = "CODEBUILD_CLONE_REF"
