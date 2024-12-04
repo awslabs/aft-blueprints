@@ -10,16 +10,17 @@ resource "aws_lambda_function" "aft_new_account_event_forwarder" {
   count    = var.account_lifecycle_events_source == "AFT" ? 1 : 0
   provider = aws.event-source-account
 
-  filename         = "${path.module}/lambda/aft-new-account-event-forwarder.zip"
-  function_name    = "aft-new-account-event-forwarder"
-  description      = "This Lambda will get the AFT notifications and send it to the custom EventBridge bus"
-  role             = aws_iam_role.lambda[0].arn
-  handler          = "index.lambda_handler"
-  source_code_hash = data.archive_file.aft_new_account_event_forwarder[0].output_base64sha256
-  runtime          = "python3.12"
-  memory_size      = 128
-  timeout          = 120
-  layers           = []
+  filename                       = "${path.module}/lambda/aft-new-account-event-forwarder.zip"
+  function_name                  = "aft-new-account-event-forwarder"
+  description                    = "This Lambda will get the AFT notifications and send it to the custom EventBridge bus"
+  role                           = aws_iam_role.lambda[0].arn
+  handler                        = "index.lambda_handler"
+  source_code_hash               = data.archive_file.aft_new_account_event_forwarder[0].output_base64sha256
+  runtime                        = "python3.12"
+  reserved_concurrent_executions = -1
+  memory_size                    = 128
+  timeout                        = 120
+  layers                         = []
   environment {
     variables = {
       EVENT_BUS_ARN = aws_cloudwatch_event_bus.pipeline[0].arn
