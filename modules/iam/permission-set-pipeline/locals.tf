@@ -9,4 +9,9 @@ locals {
     is_github_enterprise = lower(var.vcs_provider) == "githubenterprise" ? true : false
   }
   codestar_connection_arn = lower(var.vcs_provider) == "github" ? aws_codestarconnections_connection.github[0].arn : aws_codestarconnections_connection.githubenterprise[0].arn
+  vpc_config = var.use_code_connection && local.vcs.is_github_enterprise ? [{
+    security_group_ids = var.vpc_config.security_groups
+    subnets            = var.vpc_config.subnets
+    vpc_id             = var.vpc_config.vpc_id
+  }] : []
 }

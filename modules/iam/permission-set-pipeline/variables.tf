@@ -31,16 +31,6 @@ variable "code_connection_name" {
   default     = "aws-ps-pipeline-connection"
 }
 
-variable "code_connection_provider" {
-  description = "Code connection provider"
-  type        = string
-  default     = "GitHub"
-  validation {
-    condition     = contains(["GitHub", "GitHubEnterpriseServer"], var.code_connection_provider)
-    error_message = "Valid values for code_connection_provider are: GitHub"
-  }
-}
-
 variable "account_lifecycle_events_source" {
   description = <<-EOF
     Define from where to capture account lifecycle events: AFT, Control Tower (CT) or None.

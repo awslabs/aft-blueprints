@@ -74,6 +74,15 @@ resource "aws_codebuild_project" "main" {
       group_name = "/aws/codebuild/${var.solution_name}-build"
     }
   }
+  dynamic "vpc_config" {
+    for_each = local.vpc_config
+
+    content {
+      security_group_ids = vpc_config.value.security_group_ids
+      subnets            = vpc_config.value.subnets
+      vpc_id             = vpc_config.value.vpc_id
+    }
+  }
   tags = var.tags
 }
 
