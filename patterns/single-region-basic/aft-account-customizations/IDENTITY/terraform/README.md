@@ -36,7 +36,7 @@ Update the `variable.auto.tfvars` file with the corresponding values for:
 
 ### AWS Permission Set Pipeline
 
-- **use_code_connection:** Inform if you want to use an external VCS provider, such as GitHub, or try the default AWS CodeCommit repository created by the solution. As AWS CodeCommit is no longer available to new customers, make sure your account is allowed to use the service. See more information in [What is AWS CodeCommit?](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)."
+- **vcs_provider:** Inform if you want to use an external VCS provider, such as GitHub, or try to use AWS CodeCommit repository created by the solution. As AWS CodeCommit is no longer available to new customers, make sure your account is allowed to use the service. See more information in [What is AWS CodeCommit?](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)."
 - **repository_name:** Provide a name for the AWS Permission Set pipeline repository. Inform the full repository path for external VCS, such as GitHub (e.g. GitHubOrganization/repository-name)."
 - **branch_name:** Enter the name of the main branch for the repository.
 

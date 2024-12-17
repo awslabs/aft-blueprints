@@ -3,34 +3,37 @@
 
 # CodeStar connection for github
 resource "aws_codestarconnections_connection" "github" {
-  count         = var.use_code_connection && local.vcs.is_github ? 1 : 0
-  name          = "permission-set-github"
+  count         = local.vcs.is_github ? 1 : 0
+  name          = "${var.solution_name}-github"
   provider_type = "GitHub"
 }
 
 # CodeStar connection for github enterprise
 resource "aws_codestarconnections_connection" "githubenterprise" {
-  count    = var.use_code_connection && local.vcs.is_github_enterprise ? 1 : 0
-  name     = "permission-set-github-ent"
+  count    = local.vcs.is_github_enterprise ? 1 : 0
+  name     = "${var.solution_name}-github-ent"
   host_arn = aws_codestarconnections_host.githubenterprise[0].arn
 }
 
 # CodeStar connection host for github enterprise
 resource "aws_codestarconnections_host" "githubenterprise" {
-  count             = var.use_code_connection && local.vcs.is_github_enterprise ? 1 : 0
+  count             = local.vcs.is_github_enterprise ? 1 : 0
   name              = "permission-set-github-ent-host"
   provider_endpoint = var.github_enterprise_url
   provider_type     = "GitHubEnterpriseServer"
 
-  vpc_configuration {
-    security_group_ids = var.vpc_config.security_groups
-    subnet_ids         = var.vpc_config.subnets
-    vpc_id             = var.vpc_config.vpc_id
+  dynamic "vpc_configuration" {
+    for_each = var.enable_vpc_config ? [true] : []
+    content {
+      security_group_ids = var.vpc_config.security_groups
+      subnet_ids         = var.vpc_config.subnets
+      vpc_id             = var.vpc_config.vpc_id
+    }
   }
 }
 
 resource "aws_codecommit_repository" "pipeline" {
-  count = var.use_code_connection ? 0 : 1
+  count = local.vcs.is_codecommit ? 1 : 0
 
   repository_name = var.repository_name
   description     = "Permission Set Pipeline respository"
@@ -75,12 +78,11 @@ resource "aws_codebuild_project" "main" {
     }
   }
   dynamic "vpc_config" {
-    for_each = local.vpc_config
-
+    for_each = var.enable_vpc_config ? [true] : []
     content {
-      security_group_ids = vpc_config.value.security_group_ids
-      subnets            = vpc_config.value.subnets
-      vpc_id             = vpc_config.value.vpc_id
+      security_group_ids = var.vpc_config.security_groups
+      subnets            = var.vpc_config.subnets
+      vpc_id             = var.vpc_config.vpc_id
     }
   }
   tags = var.tags
@@ -109,19 +111,19 @@ resource "aws_codepipeline" "main" {
       name             = "Source"
       category         = "Source"
       owner            = "AWS"
-      provider         = var.use_code_connection ? "CodeStarSourceConnection" : "CodeCommit"
+      provider         = local.vcs.is_codecommit ? "CodeCommit" : "CodeStarSourceConnection"
       version          = "1"
       output_artifacts = ["main"]
-      configuration = var.use_code_connection ? {
-        ConnectionArn        = local.codestar_connection_arn
-        FullRepositoryId     = var.repository_name
-        BranchName           = var.branch_name
-        OutputArtifactFormat = "CODEBUILD_CLONE_REF"
-        } : {
+      configuration = local.vcs.is_codecommit ? {
         RepositoryName       = aws_codecommit_repository.pipeline[0].repository_name
         BranchName           = var.branch_name
         PollForSourceChanges = false
         OutputArtifactFormat = "CODE_ZIP"
+        } : {
+        ConnectionArn        = local.codestar_connection_arn
+        FullRepositoryId     = var.repository_name
+        BranchName           = var.branch_name
+        OutputArtifactFormat = "CODEBUILD_CLONE_REF"
       }
     }
   }
@@ -144,7 +146,7 @@ resource "aws_codepipeline" "main" {
 }
 
 resource "aws_cloudwatch_event_rule" "main" {
-  count = var.use_code_connection ? 0 : 1
+  count = local.vcs.is_codecommit ? 1 : 0
 
   name        = "${var.solution_name}-main-branch-trigger"
   description = "Rule to trigger the CodePipeline based on code changes"
@@ -164,7 +166,7 @@ resource "aws_cloudwatch_event_rule" "main" {
 }
 
 resource "aws_cloudwatch_event_target" "main" {
-  count = var.use_code_connection ? 0 : 1
+  count = local.vcs.is_codecommit ? 1 : 0
 
   rule     = aws_cloudwatch_event_rule.main[0].name
   role_arn = aws_iam_role.start_pipeline.arn

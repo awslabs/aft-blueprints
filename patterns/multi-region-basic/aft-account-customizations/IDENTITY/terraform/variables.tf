@@ -1,14 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-variable "use_code_connection" {
-  description = <<-EOF
-    "Whether to use a code connection for external VCS (e.g. GitHub). 
-    If false, the code will try to create a CodeCommit repository. 
-    As AWS CodeCommit is no longer available to new customers, make sure your account has access to the service."
-  EOF
-  type        = bool
-  default     = true
+variable "vcs_provider" {
+  description = "Customer VCS Provider - valid inputs are codecommit, github, or githubenterprise"
+  type        = string
+  default     = "github"
+  validation {
+    condition     = contains(["codecommit", "github", "githubenterprise"], var.vcs_provider)
+    error_message = "Valid values for vcs_provider are: codecommit, github githubenterprise"
+  }
 }
 
 variable "repository_name" {

@@ -37,7 +37,7 @@ module "aws_ps_pipeline" {
 
   repository_name                 = var.repository_name
   branch_name                     = var.branch_name
-  use_code_connection             = var.use_code_connection
+  vcs_provider                    = var.vcs_provider
   account_lifecycle_events_source = "AFT"
   tags                            = local.tags
 }

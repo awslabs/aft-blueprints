@@ -19,16 +19,40 @@ variable "branch_name" {
   default     = "main"
 }
 
-variable "use_code_connection" {
-  description = "Whether to use a code connection for external VCS (e.g GitHub)"
-  type        = bool
-  default     = true
+variable "vcs_provider" {
+  description = "Customer VCS Provider - valid inputs are codecommit, github, or githubenterprise"
+  type        = string
+  default     = "github"
+  validation {
+    condition     = contains(["codecommit", "github", "githubenterprise"], var.vcs_provider)
+    error_message = "Valid values for vcs_provider are: codecommit, github githubenterprise"
+  }
 }
 
-variable "code_connection_name" {
-  description = "Code connection name"
+variable "github_enterprise_url" {
+  description = "GitHub enterprise URL, if GitHub Enterprise is being used. (inform only if vcs_provider = githubenterprise)"
   type        = string
-  default     = "aws-ps-pipeline-connection"
+  default     = "null"
+}
+
+variable "enable_vpc_config" {
+  description = "Enable VPC configuration for CodeBuild project and CodeConnections Host."
+  type        = bool
+  default     = false
+}
+
+variable "vpc_config" {
+  description = "VPC configuration to set to CodeBuild project and CodeConnections Host. (enable_vpc_config must be true)"
+  type = object({
+    vpc_id          = string
+    subnets         = list(string)
+    security_groups = list(string)
+  })
+  default = {
+    vpc_id          = ""
+    subnets         = []
+    security_groups = []
+  }
 }
 
 variable "account_lifecycle_events_source" {
@@ -69,34 +93,4 @@ variable "account_lifecycle_events_source" {
 variable "tags" {
   type    = map(string)
   default = {}
-}
-
-variable "vcs_provider" {
-  description = "Customer VCS Provider - valid inputs are github, or githubenterprise"
-  type        = string
-  default     = "github"
-  validation {
-    condition     = contains(["github", "githubenterprise"], var.vcs_provider)
-    error_message = "Valid values for var: vcs_provider are (github, githubenterprise)."
-  }
-}
-
-variable "github_enterprise_url" {
-  description = "GitHub enterprise URL, if GitHub Enterprise is being used"
-  type        = string
-  default     = "null"
-}
-
-variable "vpc_config" {
-  description = "VPC configuration to set to codebuild projects"
-  type = object({
-    vpc_id          = string
-    subnets         = list(string)
-    security_groups = list(string)
-  })
-  default = {
-    vpc_id          = ""
-    subnets         = []
-    security_groups = []
-  }
 }
