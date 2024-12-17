@@ -20,3 +20,9 @@ variable "securityhub_control_finding_generator" {
     error_message = "Valid values are: SECURITY_CONTROL, STANDARD_CONTROL."
   }
 }
+
+variable "securityhub_enabled_standard_arns" {
+  description = "List of AWS Security Hub standard ARNs to enable."
+  type        = list(string)
+  default     = []
+}

@@ -100,12 +100,9 @@ module "securityhub_default_policy" {
   source     = "../../common/modules/security/securityhub_policy"
   depends_on = [module.securityhub]
 
-  name            = "default-policy"
-  description     = "Default policy for organization"
-  service_enabled = true
-  enabled_standard_arns = [
-    "arn:aws:securityhub:us-east-1::standards/aws-foundational-security-best-practices/v/1.0.0",
-    "arn:aws:securityhub:us-east-1::standards/cis-aws-foundations-benchmark/v/3.0.0"
-  ]
-  association_targets = [data.aws_organizations_organization.org.roots[0].id]
+  name                  = "default-policy"
+  description           = "Default policy for organization"
+  service_enabled       = true
+  enabled_standard_arns = var.securityhub_enabled_standard_arns
+  association_targets   = [data.aws_organizations_organization.org.roots[0].id]
 }

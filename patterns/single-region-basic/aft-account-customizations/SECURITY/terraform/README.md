@@ -4,7 +4,8 @@ This Terraform code is designed to set up additional AWS resources in the Contro
 
 The following resources will be deployed by this solution (not limited to those below):
 
-- AWS S3 Bucket for VPC Flow Logs
+- Amazon GuardDuty
+- AWS Security Hub
 
 For more information, see the [Centralized Logs](https://awslabs.github.io/aft-blueprints/architectures/centralized-logs) architecture page.
 
@@ -32,6 +33,7 @@ Update the `variable.auto.tfvars` file with the corresponding values for:
 ### AWS Security Hub
 
 - **securityhub_control_finding_generator:** Inform if you want to turn on consolidated control findings (SECURITY_CONTROL).
+- **securityhub_enabled_standard_arns:** Inform the list of security standards ARNs that you want to enable. Be sure to use your primary region when entering the ARN.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
