@@ -85,5 +85,5 @@ module "securityhub_default_policy" {
   description           = "Default policy for organization"
   service_enabled       = true
   enabled_standard_arns = var.securityhub_enabled_standard_arns
-  association_targets   = [data.aws_organizations_organization.org.roots[0].id]
+  association_targets   = [data.aws_organizations_organization.root_ou.roots[0].id]
 }
