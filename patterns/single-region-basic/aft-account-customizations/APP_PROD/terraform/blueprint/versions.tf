@@ -10,7 +10,6 @@ terraform {
       configuration_aliases = [
         aws.network,
         aws.dns1,
-        aws.dns2,
       ]
     }
   }
