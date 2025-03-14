@@ -20,14 +20,3 @@ module "phz_association_1" {
 
   phz_id = module.phz[0].zone_id
 }
-
-module "phz_association_2" {
-  source = "../../../common/modules/dns/route53_phz_association"
-  count  = var.phz_name == null ? 0 : 1
-  providers = {
-    aws.dns = aws.dns2
-  }
-
-  phz_id = module.phz[0].zone_id
-}
-
