@@ -26,7 +26,7 @@ resource "aws_guardduty_organization_configuration" "this" {
 
 resource "aws_guardduty_organization_configuration_feature" "this" {
   # An issue in aws_guardduty_organization_configuration_feature and aws_guardduty_detector_feature resource 
-  # makes terraform replace the additional configuration everytime it runs.
+  # makes terraform replace the additional configuration every time it runs.
   # https://github.com/hashicorp/terraform-provider-aws/issues/36400
   # https://github.com/hashicorp/terraform-provider-aws/issues/36695
   # https://github.com/hashicorp/terraform-provider-aws/pull/36985

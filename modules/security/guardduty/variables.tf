@@ -31,7 +31,7 @@ variable "datasources" {
 variable "organization_features" {
   description = <<-EOF
     "GuardDuty features that will be enabled.
-    Acording to GuardDuty documentation, specifying both RUNTIME_MONITORING (preferred) and EKS_RUNTIME_MONITORING will cause an error.
+    According to GuardDuty documentation, specifying both RUNTIME_MONITORING (preferred) and EKS_RUNTIME_MONITORING will cause an error.
     See the https://docs.aws.amazon.com/guardduty/latest/APIReference/API_OrganizationFeatureConfiguration.html for more information."
     Example:
     ```

@@ -8,7 +8,7 @@ variable "gateway_name" {
 }
 
 variable "bgp_asn" {
-  description = "BGP ASN for the Direct Connect gateway (Aamazon side)"
+  description = "BGP ASN for the Direct Connect gateway (Amazon side)"
   type        = number
   default     = 64512
 }

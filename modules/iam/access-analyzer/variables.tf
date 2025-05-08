@@ -3,7 +3,7 @@
 
 variable "name" {
   type        = string
-  description = "Name of the IAM Analyzier"
+  description = "Name of the IAM Analyzer"
   default     = "iam-analyzer"
 }
 
@@ -19,7 +19,7 @@ variable "type" {
 
 variable "unused_access_age" {
   type        = string
-  description = "Specify a number of days for the tracking the period. Applyied to UNACCOUNT_UNUSED_ACCESS and ORGANIZATION_UNUSED_ACCESS access analysis only."
+  description = "Specify a number of days for the tracking the period. Applied to ACCOUNT_UNUSED_ACCESS and ORGANIZATION_UNUSED_ACCESS access analysis only."
   default     = 90
 }
 

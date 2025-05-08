@@ -75,7 +75,7 @@ variable "account_lifecycle_events_source" {
           }
         ```
 
-      - If you don't want to use account lifecyle events to trigger the pipeline, select None and inform the aws default provider:
+      - If you don't want to use account lifecycle events to trigger the pipeline, select None and inform the aws default provider:
         ```
           providers = {
             aws.event-source-account = aws

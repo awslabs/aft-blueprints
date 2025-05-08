@@ -63,7 +63,7 @@ variable "gateway_endpoints" {
       length(var.gateway_endpoints.services) == 0 ||
       alltrue([for service in var.gateway_endpoints.services : contains(["s3", "s3express", "dynamodb"], service)])
     )
-    error_message = "The value of services is invalid, it must be one of the follwing: s3 or dynamodb."
+    error_message = "The value of services is invalid, it must be one of the following: s3 or dynamodb."
   }
 }
 

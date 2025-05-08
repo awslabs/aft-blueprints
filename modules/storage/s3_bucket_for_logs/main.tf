@@ -42,7 +42,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
 
   bucket = aws_s3_bucket.this.id
   rule {
-    id = "LyfeCicleRule"
+    id = "LifecycleRule"
     filter {}
     expiration {
       days = var.expiration_days
