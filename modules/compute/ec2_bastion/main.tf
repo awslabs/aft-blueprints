@@ -4,7 +4,7 @@
 resource "aws_instance" "bastion_linux" {
   user_data                   = filebase64("${path.module}/user_data_script/user-data-bastion.sh")
   iam_instance_profile        = aws_iam_instance_profile.bastion_instance_profile.name
-  ami                         = data.aws_ami.amazon_linux.id
+  ami                         = data.aws_ssm_parameter.amazon_linux.value
   instance_type               = var.ec2_instance_type
   tenancy                     = "default"
   ebs_optimized               = true
@@ -20,7 +20,7 @@ resource "aws_instance" "bastion_linux" {
     volume_size           = 30
     delete_on_termination = true
     encrypted             = true
-    kms_key_id            = data.aws_kms_alias.current.target_key_arn
+    kms_key_id            = data.aws_ebs_default_kms_key.current.key_arn
   }
   tags = merge(
     { Name = "ec2-${var.identifier}-bastion" },
@@ -53,14 +53,14 @@ resource "aws_security_group" "bastion" {
   }
   ingress {
     cidr_blocks = data.aws_vpc.this.cidr_block_associations[*].cidr_block
-    description = "Allow ALL trafic from VPC"
+    description = "Allow ALL traffic from VPC"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
   }
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow ALL egress trafic"
+    description = "Allow ALL egress traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
