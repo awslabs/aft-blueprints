@@ -1,13 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-variable "enbable_s3_bpa" {
+variable "enable_s3_bpa" {
   type        = bool
   description = "Block S3 public access at account level"
   default     = true
 }
 
-variable "enbable_ami_bpa" {
+variable "enable_ami_bpa" {
   type        = bool
   description = "Block public sharing of AMI at account level"
   default     = true

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 resource "aws_s3_account_public_access_block" "account" {
-  count                   = var.enbable_s3_bpa ? 1 : 0
+  count                   = var.enable_s3_bpa ? 1 : 0
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -11,7 +11,7 @@ resource "aws_s3_account_public_access_block" "account" {
 
 
 resource "aws_ec2_image_block_public_access" "account" {
-  count = var.enbable_ami_bpa ? 1 : 0
+  count = var.enable_ami_bpa ? 1 : 0
   state = "block-new-sharing"
 }
 

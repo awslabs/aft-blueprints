@@ -3,7 +3,7 @@
 
 variable "vpc" {
   type        = map(any)
-  description = "VPC paramenters"
+  description = "VPC parameters"
   default     = null
 }
 

@@ -36,8 +36,8 @@ module "default_account_config_primary" {
     aws = aws.primary
   }
 
-  enbable_s3_bpa         = lookup(local.features, "s3_bpa", true)
-  enbable_ami_bpa        = lookup(local.features, "ami_bpa", true)
+  enable_s3_bpa          = lookup(local.features, "s3_bpa", true)
+  enable_ami_bpa         = lookup(local.features, "ami_bpa", true)
   enforce_ebs_encryption = lookup(local.features, "ebs_encryption", true)
   enforce_imdsv2         = lookup(local.features, "imdsv2", true)
 }
@@ -48,8 +48,8 @@ module "default_account_config_secondary" {
     aws = aws.secondary
   }
 
-  enbable_s3_bpa         = false # It is a global configuration, so only needs to be deployed once for an account
-  enbable_ami_bpa        = lookup(local.features, "ami_bpa", true)
+  enable_s3_bpa          = false # It is a global configuration, so only needs to be deployed once for an account
+  enable_ami_bpa         = lookup(local.features, "ami_bpa", true)
   enforce_ebs_encryption = lookup(local.features, "ebs_encryption", true)
   enforce_imdsv2         = lookup(local.features, "imdsv2", true)
 }

@@ -18,7 +18,7 @@ module "ipam" {
   #external module documentation: https://github.com/aws-ia/terraform-aws-ipam
   source  = "aws-ia/ipam/aws"
   version = "2.1.0"
-  # Wating fixing issue https://github.com/aws-ia/terraform-aws-ipam/issues/67 to use depends_on
+  # Waiting fixing issue https://github.com/aws-ia/terraform-aws-ipam/issues/67 to use depends_on
   # depends_on = [aws_organizations_delegated_administrator.ipam]
 
   top_cidr        = var.aws_ip_address_plan.global_cidr_blocks
