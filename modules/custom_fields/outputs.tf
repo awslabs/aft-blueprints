@@ -3,5 +3,5 @@
 
 output "values" {
   description = "Custom field values"
-  value       = local.parameters
+  value       = local.aft_custom_fields
 }
