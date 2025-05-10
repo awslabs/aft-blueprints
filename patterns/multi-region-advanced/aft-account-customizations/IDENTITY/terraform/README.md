@@ -47,17 +47,15 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >=1.5.0 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 5.69.0 |
-| aws.aft-management | 5.69.0 |
-| aws.org-management | 5.69.0 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.org-management | n/a |
 
 ## Modules
 
@@ -84,7 +82,7 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 |------|-------------|------|---------|:--------:|
 | branch\_name | Repository main branch name for AWS Permission Set pipeline. | `string` | `"main"` | no |
 | repository\_name | Repository name for AWS Permission Set pipeline. For external VCS, inform the full repository path (e.g. GitHubOrganization/repository-name). | `string` | `"myorg/aws-ps-pipeline"` | no |
-| use\_code\_connection | "Whether to use a code connection for external VCS (e.g. GitHub).  If false, the code will try to create a CodeCommit repository.  As AWS CodeCommit is no longer available to new customers, make sure your account has access to the service." | `bool` | `true` | no |
+| vcs\_provider | Customer VCS Provider - valid inputs are codecommit, github, or githubenterprise | `string` | `"github"` | no |
 
 ## Outputs
 

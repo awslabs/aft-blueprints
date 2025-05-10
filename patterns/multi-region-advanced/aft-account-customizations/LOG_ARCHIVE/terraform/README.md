@@ -30,18 +30,16 @@ Define the regions you want to use in the `aft-config.j2` file:
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >=1.5.0 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 5.73.0 |
-| aws.aft-management | 5.73.0 |
-| aws.primary | 5.73.0 |
-| aws.secondary | 5.73.0 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.primary | n/a |
+| aws.secondary | n/a |
 
 ## Modules
 

@@ -38,10 +38,10 @@ Define the regions you want to use in the `aft-config.j2` file:
 
 | Name | Version |
 |------|---------|
-| aws | 5.73.0 |
-| aws.aft-management | 5.73.0 |
-| aws.primary | 5.73.0 |
-| aws.secondary | 5.73.0 |
+| aws | 5.78.0 |
+| aws.aft-management | 5.78.0 |
+| aws.primary | 5.78.0 |
+| aws.secondary | 5.78.0 |
 
 ## Modules
 

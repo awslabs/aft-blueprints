@@ -140,11 +140,11 @@ See below an example of an AWS Organizations delegation policy. Replace the plac
 
 | Name | Version |
 |------|---------|
-| aws | 5.45.0 |
-| aws.aft-management | 5.45.0 |
-| aws.org-management | 5.45.0 |
-| aws.primary | 5.45.0 |
-| aws.secondary | 5.45.0 |
+| aws | 5.78.0 |
+| aws.aft-management | 5.78.0 |
+| aws.org-management | 5.78.0 |
+| aws.primary | 5.78.0 |
+| aws.secondary | 5.78.0 |
 
 ## Modules
 
@@ -171,7 +171,16 @@ See below an example of an AWS Organizations delegation policy. Replace the plac
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| backup\_vault\_lock\_changeable\_for\_days | "AWS Backup Vault Lock changeable ofr days configuration.  To create vault lock in governance mode inform 0 (zero), for vault lock in compliance mode inform a value >= 3 and <= 36,500. See https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html for more information." | `number` | `0` | no |
+| backup\_vault\_lock\_max\_retention\_days | AWS Backup Vault Lock maximum retention days configuration. | `number` | `365` | no |
+| backup\_vault\_lock\_min\_retention\_days | AWS Backup Vault Lock minimum retention days configuration. | `number` | `7` | no |
+| backup\_vault\_name | AWS Backup Vault name | `string` | `"central-vault"` | no |
+| enable\_backup\_copy\_jobs\_report | Whether enable AWS Backup report for backup copy jobs or not. | `bool` | `true` | no |
+| enable\_backup\_jobs\_report | Whether enable AWS Backup report for backup jobs or not. | `bool` | `true` | no |
+| enable\_backup\_restore\_jobs\_report | Whether enable AWS Backup report for backup restore jobs or not. | `bool` | `true` | no |
+| enable\_backup\_vault\_lock | Whether enable AWS Backup Vault Lock feature or not. | `bool` | `true` | no |
 
 ## Outputs
 

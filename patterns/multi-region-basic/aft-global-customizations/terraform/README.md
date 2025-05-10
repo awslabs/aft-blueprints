@@ -45,8 +45,8 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | aft\_custom\_fields | ./modules/custom_fields | n/a |
-| primary\_default\_account\_config | ./modules/default_account_config | n/a |
-| secondary\_default\_account\_config | ./modules/default_account_config | n/a |
+| default\_account\_config\_primary | ./modules/default_account_config | n/a |
+| default\_account\_config\_secondary | ./modules/default_account_config | n/a |
 
 ## Resources
 

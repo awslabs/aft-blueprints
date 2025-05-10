@@ -42,20 +42,18 @@ Update the `variable.auto.tfvars` file with the corresponding values for:
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >=1.5.0 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 5.72.1 |
-| aws.aft-management | 5.72.1 |
-| aws.org-management-primary | 5.72.1 |
-| aws.org-management-secondary | 5.72.1 |
-| aws.primary | 5.72.1 |
-| aws.secondary | 5.72.1 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.org-management-primary | n/a |
+| aws.org-management-secondary | n/a |
+| aws.primary | n/a |
+| aws.secondary | n/a |
 
 ## Modules
 
@@ -78,6 +76,7 @@ Update the `variable.auto.tfvars` file with the corresponding values for:
 | [aws_ssm_parameter.account_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_organizations_organization.org](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
+| [aws_organizations_organization.root_ou](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
 | [aws_region.secondary](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
@@ -86,6 +85,7 @@ Update the `variable.auto.tfvars` file with the corresponding values for:
 |------|-------------|------|---------|:--------:|
 | guardduty\_auto\_enable\_organization\_members | Define whether enable GuardDuty Organization Configuration or not. | `string` | `"ALL"` | no |
 | securityhub\_control\_finding\_generator | Define whether the Security Hub calling account has consolidated control findings turned on. | `string` | `"SECURITY_CONTROL"` | no |
+| securityhub\_enabled\_standard\_arns | List of AWS Security Hub standard ARNs to enable. | `list(string)` | `[]` | no |
 
 ## Outputs
 

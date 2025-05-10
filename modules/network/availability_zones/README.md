@@ -4,13 +4,13 @@
 | Name | Version |
 |------|---------|
 | terraform | >=1.5.0 |
-| aws | >=5.0.0 |
+| aws | ~>5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >=5.0.0 |
+| aws | ~>5.0 |
 
 ## Modules
 
@@ -20,7 +20,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_ssm_parameter.network_account_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
+| [aws_ssm_parameter.az](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_availability_zone.az](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zone) | data source |
 
 ## Inputs

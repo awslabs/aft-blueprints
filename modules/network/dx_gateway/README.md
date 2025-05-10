@@ -4,13 +4,13 @@
 | Name | Version |
 |------|---------|
 | terraform | >=1.5.0 |
-| aws | >=5.0.0 |
+| aws | ~>5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >=5.0.0 |
+| aws | ~>5.0 |
 
 ## Modules
 
@@ -26,7 +26,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| bgp\_asn | BGP ASN for the Direct Connect gateway (Aamazon side) | `number` | `64512` | no |
+| bgp\_asn | BGP ASN for the Direct Connect gateway (Amazon side) | `number` | `64512` | no |
 | gateway\_name | Name for the Direct Connect gateway | `string` | `"aws-dx-gateway"` | no |
 
 ## Outputs

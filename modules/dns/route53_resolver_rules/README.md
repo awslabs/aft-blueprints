@@ -4,13 +4,13 @@
 | Name | Version |
 |------|---------|
 | terraform | >=1.5.0 |
-| aws | >=5.0.0 |
+| aws | ~>5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >=5.0.0 |
+| aws | ~>5.0 |
 
 ## Modules
 
