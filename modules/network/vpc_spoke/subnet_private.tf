@@ -34,9 +34,9 @@ resource "aws_route_table_association" "private" {
 
 resource "aws_route" "private" {
   for_each   = local.azs
-  depends_on = [module.tgw_vpc_attachment]
+  depends_on = [module.tgw_attachment_automation]
 
   route_table_id         = aws_route_table.private[each.key].id
-  transit_gateway_id     = module.tgw_vpc_attachment.transit_gateway_id
+  transit_gateway_id     = var.use_tgw_attachment_automation ? module.tgw_attachment_automation[0].transit_gateway_id : var.tgw_id
   destination_cidr_block = "0.0.0.0/0"
 }

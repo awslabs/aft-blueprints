@@ -3,6 +3,10 @@
 
 data "aws_region" "current" {}
 
+data "aws_caller_identity" "current" {
+  count = var.account_id == "" ? 1 : 0
+}
+
 data "aws_availability_zone" "current" {
   for_each = { for az in var.availability_zones : az => data.aws_ssm_parameter.azs[az].value }
   filter {
@@ -19,7 +23,7 @@ data "aws_ssm_parameter" "azs" {
 }
 
 data "aws_ssm_parameter" "central_vpc_flow_logs_s3_bucket_arn" {
-  count    = var.enable_central_vpc_flow_logs ? 1 : 0
+  count    = var.enable_central_vpc_flow_logs && var.central_vpc_flow_logs_destination_arn == "" ? 1 : 0
   provider = aws.network
 
   name = "/org/core/network/vpc-flow-logs/s3-bucket-arn"

@@ -25,7 +25,9 @@ module "primary_region" {
     aws.log-archive = aws.log-archive-primary
   }
 
+  region_name        = data.aws_region.primary.name
   availability_zones = var.aws_availability_zones.primary_region
-  ipam_pools         = module.ipam.pools_level_2
+  account_id         = data.aws_caller_identity.current.account_id
+  ipam_pool_id       = module.ipam.pools_level_2["${data.aws_region.primary.name}/shared"].id
   tags               = local.tags
 }

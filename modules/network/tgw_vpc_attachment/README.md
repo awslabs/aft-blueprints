@@ -4,14 +4,14 @@
 | Name | Version |
 |------|---------|
 | terraform | >=1.5.0 |
-| aws | >=5.0.0 |
+| aws | ~>5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >=5.0.0 |
-| aws.network | >=5.0.0 |
+| aws | ~>5.0 |
+| aws.network | ~>5.0 |
 
 ## Modules
 
@@ -27,7 +27,6 @@ No modules.
 | [aws_ec2_transit_gateway_vpc_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_vpc_attachment) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_caller_identity.network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [aws_ssm_parameter.propagation_rules](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.rt_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.rt_propagations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
@@ -37,10 +36,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| account\_id | Account ID | `string` | `""` | no |
+| route\_table\_name | Transit Gateway route table name to be associated with the vpc attachment. | `string` | `""` | no |
 | subnet\_ids | List of subnet id to be attached to Transit Gateway | `list(string)` | n/a | yes |
-| tgw\_id | Transit Gateway Id | `string` | `""` | no |
-| tgw\_rt\_association | Transit Gateway route table Id to be associated with the vpc attachment. | `string` | n/a | yes |
-| tgw\_rt\_propagations | Transit Gateway route table propagation rules, based on the associated route table. | `list(string)` | `[]` | no |
 | vpc\_id | VPC Id | `string` | n/a | yes |
 | vpc\_name | VPC Name | `string` | `"vpc"` | no |
 

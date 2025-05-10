@@ -16,6 +16,14 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "this" {
   tags = { Name = local.attachment_name }
 }
 
+resource "aws_ec2_tag" "vpc_attachment" {
+  provider = aws.network
+
+  resource_id = aws_ec2_transit_gateway_vpc_attachment.this.id
+  key         = "Name"
+  value       = local.attachment_name
+}
+
 resource "aws_ec2_transit_gateway_route_table_association" "this" {
   provider = aws.network
 
@@ -24,17 +32,9 @@ resource "aws_ec2_transit_gateway_route_table_association" "this" {
 }
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "this" {
-  for_each = local.tgw_rt_propagations
+  for_each = local.tgw_rt_propagation_ids
   provider = aws.network
 
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.this.id
   transit_gateway_route_table_id = each.value
-}
-
-resource "aws_ec2_tag" "vpc_attachment" {
-  provider = aws.network
-
-  resource_id = aws_ec2_transit_gateway_vpc_attachment.this.id
-  key         = "Name"
-  value       = local.attachment_name
 }

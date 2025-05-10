@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 locals {
-  vpc_name    = "vpc-egress"
-  region      = data.aws_region.current.name
+  id          = var.identifier == "" ? random_string.id[0].result : var.identifier
+  vpc_name    = "vpc-${var.environment}-${local.id}"
   cidrsubnets = cidrsubnets(aws_vpc.vpc.cidr_block, 2, 2, 2, 2)
 
   azs = {

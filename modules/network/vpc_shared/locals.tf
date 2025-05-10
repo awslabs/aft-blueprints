@@ -3,7 +3,8 @@
 
 locals {
   id          = var.identifier == "" ? random_string.id[0].result : var.identifier
-  region      = data.aws_region.current.name
+  region      = var.region_name == "" ? data.aws_region.current.name : var.region_name
+  account_id  = var.account_id == "" ? data.aws_caller_identity.current[0].account_id : var.account_id
   vpc_name    = "vpc-${var.environment}-${local.id}"
   cidrsubnets = cidrsubnets(aws_vpc.this.cidr_block, 1, 2, 2)
   vpc_size    = local.vpc_size_map[var.vpc_size]

@@ -1,10 +1,42 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+variable "identifier" {
+  description = "VPC identifier"
+  type        = string
+  default     = ""
+}
+
+variable "region_name" {
+  type        = string
+  description = "VPC region name. You can use a long or short name. (This value will form the resource name)"
+  default     = ""
+}
+
+variable "environment" {
+  description = "Environment name. Will be used to define ipam pool and tgw route tables configuration."
+  type        = string
+  validation {
+    condition     = contains(["shared"], var.environment)
+    error_message = "The environment value is invalid, it should be 'shared'."
+  }
+  default = "shared"
+}
+
 variable "vpc_cidr" {
   type        = string
   description = "VPC CIDR (minimum size /24) [required if ipam_pool_id is not informed]"
   default     = null
+}
+
+variable "account_id" {
+  type        = string
+  description = "Account ID"
+  default     = ""
+  validation {
+    condition     = can(regex("(?:^\\d{12}$|)", var.account_id))
+    error_message = "The account_id value must be 12 digits."
+  }
 }
 
 variable "ipam_pool_id" {
@@ -62,6 +94,13 @@ variable "enable_central_vpc_flow_logs" {
   type        = bool
   default     = false
 }
+
+variable "central_vpc_flow_logs_destination_arn" {
+  type        = string
+  description = "The ARN of the resource destination to export VPC flow logs to."
+  default     = null
+}
+
 
 variable "vpc_tags" {
   description = "Tags for all resources within the VPC"

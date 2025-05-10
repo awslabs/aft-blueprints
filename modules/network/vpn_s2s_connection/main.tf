@@ -67,5 +67,5 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "this" {
 resource "aws_ec2_tag" "vpn_attachment" {
   resource_id = aws_vpn_connection.vpn_connection.transit_gateway_attachment_id
   key         = "Name"
-  value       = "${data.aws_caller_identity.current.account_id}-tgw-attach-${var.connection_name}"
+  value       = "${var.account_id}-tgw-attach-${var.connection_name}"
 }

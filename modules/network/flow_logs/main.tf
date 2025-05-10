@@ -7,7 +7,7 @@ resource "aws_flow_log" "this" {
   log_destination_type          = var.destination_type
   deliver_cross_account_role    = null
   iam_role_arn                  = var.destination_type == "s3" ? null : aws_iam_role.cloudwatch[0].arn
-  log_destination               = var.destination_type == "s3" ? var.s3_bucket_arn : aws_cloudwatch_log_group.cloudwatch[0].arn
+  log_destination               = var.destination_type == "s3" ? var.s3_destination_bucket_arn : aws_cloudwatch_log_group.cloudwatch[0].arn
   subnet_id                     = var.resource_type == "subnet" ? var.resource_id : null
   transit_gateway_id            = var.resource_type == "transit_gateway" ? var.resource_id : null
   transit_gateway_attachment_id = var.resource_type == "transit_gateway_attachment" ? var.resource_id : null
@@ -50,9 +50,26 @@ resource "aws_cloudwatch_log_group" "cloudwatch" {
 resource "aws_iam_role" "cloudwatch" {
   count = var.destination_type == "cloud-watch-logs" ? 1 : 0
 
-  name               = "flow-logs-cw-${var.resource_name}"
-  assume_role_policy = data.aws_iam_policy_document.vpc_flow_logs[0].json
-  tags               = var.tags
+  name = "flow-logs-cw-${var.resource_name}"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "VpcFlowLogsAssumeRole"
+        Action = "sts:AssumeRole"
+        Principal = {
+          Service = "vpc-flow-logs.amazonaws.com"
+        }
+        Effect = "Allow"
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = [var.account_id]
+          }
+        }
+      }
+    ]
+  })
+  tags = var.tags
 }
 
 resource "aws_iam_role_policy" "cloudwatch" {

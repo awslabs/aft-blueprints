@@ -1,28 +1,26 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 locals {
-  region = data.aws_region.current.name
   tgw_route_tables = [
+    "security",
     "shared",
     "prod",
     "stage",
-    "dev",
-    "egress",
-    "gateway"
+    "dev"
   ]
   tgw_propagation_rules = {
-    shared = ["shared", "prod", "stage", "dev", "egress", "gateway"]
-    prod   = ["prod", "shared", "egress", "gateway"]
-    stage  = ["stage", "shared", "egress", "gateway"]
-    dev    = ["dev", "shared", "egress", "gateway"]
+    shared = ["security", "shared", "prod", "stage", "dev"]
+    prod   = ["security", "shared", "prod"]
+    stage  = ["security", "shared", "stage"]
+    dev    = ["security", "shared", "dev"]
   }
   dns_resolver_rules = {
     phz = {
       domain_name = "on.aws"
     }
     vpce = {
-      domain_name = "${local.region}.amazonaws.com"
+      domain_name = "${var.region_name}.amazonaws.com"
     }
   }
 }

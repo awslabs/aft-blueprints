@@ -29,6 +29,7 @@ resource "aws_instance" "bastion_linux" {
   lifecycle {
     ignore_changes = [
       user_data,
+      root_block_device[0].kms_key_id,
       ami
     ]
   }

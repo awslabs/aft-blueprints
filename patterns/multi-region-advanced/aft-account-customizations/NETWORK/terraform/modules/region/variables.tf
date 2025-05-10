@@ -1,6 +1,21 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+variable "account_id" {
+  type        = string
+  description = "Account ID"
+  default     = ""
+  validation {
+    condition     = can(regex("(?:^\\d{12}$|)", var.account_id))
+    error_message = "The account_id value must be 12 digits."
+  }
+}
+
+variable "region_name" {
+  description = "Region name"
+  type        = string
+}
+
 variable "region_cidr_blocks" {
   description = "List with IPAM region CIDR Blocks"
   type        = list(string)
@@ -64,10 +79,10 @@ variable "private_cidr_blocks" {
   default     = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
 }
 
-variable "ipam_pools" {
-  description = "Map with IPAM pool information."
-  type        = map(any)
-  default     = {}
+variable "ipam_pool_id" {
+  description = "IPAM pool ID to get the IP address for VPCs"
+  type        = string
+  default     = ""
 }
 
 variable "vpn_cgw_ip_address" {

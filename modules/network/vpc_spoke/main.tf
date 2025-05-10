@@ -23,6 +23,10 @@ resource "aws_vpc" "this" {
     var.tags,
     var.vpc_tags
   )
+  lifecycle {
+    # Added to prevent VPC from being recreated after changes to the IPAM module
+    ignore_changes = [ipv4_ipam_pool_id]
+  }
 }
 
 resource "aws_default_route_table" "default" {

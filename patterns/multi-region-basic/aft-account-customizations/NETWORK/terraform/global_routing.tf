@@ -17,10 +17,10 @@ module "tgw_peering_primary_to_secondary" {
   }
 
   tgw_requester_id             = module.primary_region.tgw_id
-  tgw_requester_route_table_id = module.primary_region.tgw_route_table_id["gateway"]
+  tgw_requester_route_table_id = module.primary_region.tgw_route_table_id["security"]
   tgw_requester_region         = data.aws_region.primary.name
   tgw_accepter_id              = module.secondary_region.tgw_id
-  tgw_accepter_route_table_id  = module.secondary_region.tgw_route_table_id["gateway"]
+  tgw_accepter_route_table_id  = module.secondary_region.tgw_route_table_id["security"]
   tgw_accepter_region          = data.aws_region.secondary.name
   tags                         = local.tags
 }

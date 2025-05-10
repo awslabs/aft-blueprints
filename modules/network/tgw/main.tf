@@ -9,7 +9,7 @@ resource "aws_ec2_transit_gateway" "this" {
   amazon_side_asn                 = var.amazon_side_asn
   description                     = "Regional Transit Gateway"
   tags = merge(
-    { "Name" = "tgw-${data.aws_region.current.name}" },
+    { "Name" = "tgw-${var.region_name}" },
     var.tags
   )
   timeouts {
@@ -19,10 +19,10 @@ resource "aws_ec2_transit_gateway" "this" {
 }
 
 resource "aws_ram_resource_share" "tgw" {
-  name                      = "tgw-${data.aws_region.current.name}"
+  name                      = "tgw-${var.region_name}"
   allow_external_principals = false
   tags = {
-    "Name" = "tgw-${data.aws_region.current.name}"
+    "Name" = "tgw-${var.region_name}"
   }
 }
 
@@ -34,15 +34,6 @@ resource "aws_ram_resource_association" "tgw" {
 resource "aws_ram_principal_association" "tgw" {
   principal          = data.aws_organizations_organization.this.arn
   resource_share_arn = aws_ram_resource_share.tgw.arn
-}
-
-module "route_table" {
-  source   = "./route_table"
-  for_each = toset(var.route_tables)
-
-  route_table_name   = each.key
-  transit_gateway_id = aws_ec2_transit_gateway.this.id
-  tags               = var.tags
 }
 
 resource "aws_ssm_parameter" "propagation_rules" {

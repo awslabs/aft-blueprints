@@ -25,9 +25,11 @@ module "primary_region" {
     aws.log-archive = aws.log-archive-primary
   }
 
+  region_name           = data.aws_region.primary.name
   availability_zones    = var.aws_availability_zones.primary_region
-  tgw_amazon_side_asn   = "64513"
-  ipam_pools            = module.ipam.pools_level_2
+  account_id            = data.aws_caller_identity.current.account_id
+  tgw_amazon_side_asn   = "64512"
+  ipam_pool_id          = module.ipam.pools_level_2["${data.aws_region.primary.name}/shared"].id
   region_cidr_blocks    = var.aws_ip_address_plan.primary_region.cidr_blocks
   vpc_endpoint_services = var.aws_vpc_endpoint_services
   tags                  = local.tags
@@ -40,9 +42,11 @@ module "secondary_region" {
     aws.log-archive = aws.log-archive-secondary
   }
 
+  region_name           = data.aws_region.secondary.name
   availability_zones    = var.aws_availability_zones.secondary_region
-  tgw_amazon_side_asn   = "64514"
-  ipam_pools            = module.ipam.pools_level_2
+  account_id            = data.aws_caller_identity.current.account_id
+  tgw_amazon_side_asn   = "64513"
+  ipam_pool_id          = module.ipam.pools_level_2["${data.aws_region.secondary.name}/shared"].id
   region_cidr_blocks    = var.aws_ip_address_plan.secondary_region.cidr_blocks
   vpc_endpoint_services = var.aws_vpc_endpoint_services
   tags                  = local.tags

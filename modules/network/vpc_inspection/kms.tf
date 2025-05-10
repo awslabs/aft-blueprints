@@ -9,5 +9,47 @@ resource "aws_kms_key" "nfw" {
 
 resource "aws_kms_key_policy" "nfw" {
   key_id = aws_kms_key.nfw.id
-  policy = data.aws_iam_policy_document.nfw_kms_policy.json
+  policy = jsonencode(
+    {
+      Statement = [
+        {
+          Sid    = "Enable IAM User Permissions"
+          Effect = "Allow"
+          Principal = {
+            AWS = "arn:aws:iam::${var.account_id}:root"
+          }
+          Action   = "kms:*"
+          Resource = "*"
+        },
+        {
+          Sid    = "Allow access for Key Administrators"
+          Effect = "Allow"
+          Principal = {
+            AWS = [
+              "arn:aws:iam::${var.account_id}:role/AWSControlTowerExecution",
+              "arn:aws:iam::${var.account_id}:role/AWSAFTExecution"
+            ]
+          }
+          Action = [
+            "kms:Create*",
+            "kms:Describe*",
+            "kms:Enable*",
+            "kms:List*",
+            "kms:Put*",
+            "kms:Update*",
+            "kms:Revoke*",
+            "kms:Disable*",
+            "kms:Get*",
+            "kms:Delete*",
+            "kms:TagResource",
+            "kms:UntagResource",
+            "kms:ScheduleKeyDeletion",
+            "kms:CancelKeyDeletion"
+          ]
+          Resource = "*"
+        }
+      ]
+      Version = "2008-10-17"
+    }
+  )
 }

@@ -37,7 +37,7 @@ resource "aws_internet_gateway" "igw" {
 
   vpc_id = aws_vpc.vpc.id
   tags = merge(
-    { "Name" = "${local.vpc_name}-igw-${local.region}" },
+    { "Name" = "${local.vpc_name}-igw-${var.region_name}" },
     var.tags
   )
 }

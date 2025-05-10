@@ -7,6 +7,12 @@ variable "identifier" {
   default     = ""
 }
 
+variable "region_name" {
+  type        = string
+  description = "VPC region name. You can use a long or short name. (This value will form the resource name)"
+  default     = ""
+}
+
 variable "environment" {
   description = "Environment name. Will be used to define ipam pool and tgw route tables configuration."
   type        = string
@@ -30,6 +36,16 @@ variable "vpc_size" {
   validation {
     condition     = contains(["small", "medium", "large", "xlarge"], var.vpc_size)
     error_message = "The vpc size value is invalid, it should be 'small', 'medium', 'large' or 'xlarge'."
+  }
+}
+
+variable "account_id" {
+  type        = string
+  description = "Account ID"
+  default     = ""
+  validation {
+    condition     = can(regex("(?:^\\d{12}$|)", var.account_id))
+    error_message = "The account_id value must be 12 digits."
   }
 }
 
@@ -87,34 +103,28 @@ variable "subnets" {
   ))
 }
 
-variable "tgw_id" {
-  description = "Transit Gateway Id"
-  type        = string
-  default     = null
-}
-
-variable "use_tgw_id_parameter" {
-  description = "Use the Transit Gateway Id from the parameter store. Overrides tgw_id variable."
+variable "use_tgw_attachment_automation" {
+  description = "Use the Transit Gateway attachment automation."
   type        = bool
   default     = true
+}
+
+variable "tgw_id" {
+  description = "Transit Gateway Id. (only if use_tgw_attachment_automation==false)"
+  type        = string
+  default     = null
 }
 
 variable "tgw_rt_association_id" {
-  description = "Transit Gateway route table Id that should receive the VPC attachment association"
+  description = "Transit Gateway route table Id that should receive the VPC attachment association. (only if use_tgw_attachment_automation==false)"
   type        = string
   default     = null
 }
 
-variable "tgw_rt_propagations" {
-  description = "Transit Gateway route table to propagations. k => v, name => route_table_id"
+variable "tgw_rt_propagation_ids" {
+  description = "Transit Gateway route table to propagations. k => v, name => route_table_id. (only if use_tgw_attachment_automation==false)"
   type        = map(string)
   default     = {}
-}
-
-variable "use_propagation_rules" {
-  description = "Use the Transit Gateway route table propagation rules, based on the associated route table"
-  type        = bool
-  default     = true
 }
 
 variable "enable_dns_hostnames" {
@@ -133,6 +143,12 @@ variable "enable_central_vpc_flow_logs" {
   description = "Should be true to enable centralized vpc flow logs to S3 bucket."
   type        = bool
   default     = false
+}
+
+variable "central_vpc_flow_logs_destination_arn" {
+  type        = string
+  description = "The ARN of the resource destination to export VPC flow logs to."
+  default     = null
 }
 
 variable "associate_dns_rules" {

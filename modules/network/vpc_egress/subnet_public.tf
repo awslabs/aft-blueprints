@@ -18,7 +18,7 @@ resource "aws_subnet" "public" {
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
   tags = merge(
-    { "Name" = "${local.vpc_name}-public-rtb-${local.region}" },
+    { "Name" = "${local.vpc_name}-public-rtb-${var.region_name}" },
     var.tags
   )
 }
@@ -33,7 +33,7 @@ resource "aws_route_table_association" "public" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
   tags = merge(
-    { "Name" = "${local.vpc_name}-igw-${local.region}" },
+    { "Name" = "${local.vpc_name}-igw-${var.region_name}" },
     var.tags
   )
 }

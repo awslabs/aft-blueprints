@@ -15,10 +15,13 @@ module "vpc_egress" {
     module.availability_zones
   ]
 
-  ipam_pool_id                   = var.ipam_pools["${local.region}/shared"].id
+  identifier                     = "egress"
+  region_name                    = var.region_name
+  account_id                     = var.account_id
+  ipam_pool_id                   = var.ipam_pool_id
   az_set                         = var.availability_zones
   transit_gateway_id             = module.tgw.transit_gateway_id
-  transit_gateway_route_table_id = module.tgw.route_table_id["egress"]
+  transit_gateway_route_table_id = module.tgw.route_table_id["security"]
   enable_vpc_flow_logs           = true
   enable_central_vpc_flow_logs   = false
   tags                           = var.tags
@@ -36,18 +39,19 @@ module "vpc_endpoints" {
     aws.network = aws
   }
 
-  identifier                   = "endpoints"
-  vpc_size                     = length(var.availability_zones) <= 2 ? "medium" : "large"
-  ipam_pool_id                 = var.ipam_pools["${local.region}/shared"].id
-  az_set                       = var.availability_zones
-  tgw_id                       = module.tgw.transit_gateway_id
-  tgw_rt_association_id        = module.tgw.route_table_id["shared"]
-  tgw_rt_propagations          = { for rt in local.tgw_propagation_rules["shared"] : rt => module.tgw.route_table_id[rt] }
-  enable_vpc_flow_logs         = true
-  enable_central_vpc_flow_logs = false
-  associate_dns_rules          = false
-  use_tgw_id_parameter         = false
-  use_propagation_rules        = false
+  identifier                    = "endpoints"
+  region_name                   = var.region_name
+  account_id                    = var.account_id
+  ipam_pool_id                  = var.ipam_pool_id
+  az_set                        = var.availability_zones
+  tgw_id                        = module.tgw.transit_gateway_id
+  tgw_rt_association_id         = module.tgw.route_table_id["shared"]
+  tgw_rt_propagation_ids        = { for rt in local.tgw_propagation_rules["shared"] : rt => module.tgw.route_table_id[rt] }
+  vpc_size                      = length(var.availability_zones) <= 2 ? "medium" : "large"
+  enable_vpc_flow_logs          = true
+  enable_central_vpc_flow_logs  = false
+  use_tgw_attachment_automation = false
+  associate_dns_rules           = false
   subnets = [
     {
       name           = "private"
@@ -64,6 +68,7 @@ module "vpce" {
   source = "../../../../common/modules/network/vpce"
 
   vpc_id       = module.vpc_endpoints.vpc_id
+  vpc_region   = var.region_name
   vpc_cidr     = module.vpc_endpoints.vpc_cidr_block
   allowed_cidr = var.region_cidr_blocks
   interface_endpoints = {

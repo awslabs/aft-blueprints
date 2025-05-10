@@ -1,13 +1,15 @@
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| terraform | >=1.5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws.aft-management | n/a |
+| aws.aft-management | 5.78.0 |
 
 ## Modules
 

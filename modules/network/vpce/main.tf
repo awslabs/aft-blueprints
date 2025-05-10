@@ -50,12 +50,12 @@ resource "aws_vpc_endpoint" "interface" {
   for_each = toset(var.interface_endpoints.services)
 
   vpc_id              = var.vpc_id
-  service_name        = length(try(regex("\\..*\\.", each.value), [])) > 0 ? each.value : "com.amazonaws.${data.aws_region.current.name}.${each.value}"
+  service_name        = length(try(regex("\\..*\\.", each.value), [])) > 0 ? each.value : "com.amazonaws.${var.vpc_region}.${each.value}"
   vpc_endpoint_type   = "Interface"
   security_group_ids  = local.create_security_group ? [aws_security_group.endpoints[0].id] : [var.security_group_id]
   subnet_ids          = var.interface_endpoints.subnet_ids
   private_dns_enabled = var.private_dns_enabled
-  policy = each.value == "ssm" || each.value == "com.amazonaws.${data.aws_region.current.name}.ssm" ? jsonencode({
+  policy = each.value == "ssm" || each.value == "com.amazonaws.${var.vpc_region}.ssm" ? jsonencode({
     Version : "2012-10-17",
     Statement : [
       {
@@ -88,7 +88,7 @@ resource "aws_vpc_endpoint" "gateway" {
   for_each = toset(var.gateway_endpoints.services)
 
   vpc_id            = var.vpc_id
-  service_name      = "com.amazonaws.${data.aws_region.current.name}.${each.value}"
+  service_name      = "com.amazonaws.${var.vpc_region}.${each.value}"
   vpc_endpoint_type = "Gateway"
   route_table_ids   = var.gateway_endpoints.route_table_ids
   tags = merge(

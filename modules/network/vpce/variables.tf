@@ -6,6 +6,11 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "vpc_region" {
+  description = "The region of the VPC in which the endpoint will be used."
+  type        = string
+}
+
 variable "vpc_name" {
   description = "The name of the VPC in which the endpoint will be used."
   type        = string

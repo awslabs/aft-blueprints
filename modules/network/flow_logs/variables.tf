@@ -1,12 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-variable "resource_type" {
+variable "account_id" {
   type        = string
-  description = "The AWS resource type to capture flow logs traffic."
+  description = "The source AWS account ID. (required only if destination_type == cloud-watch-logs)"
+  default     = ""
   validation {
-    condition     = contains(["vpc", "subnet", "eni", "transit_gateway", "transit_gateway_attachment"], var.resource_type)
-    error_message = "The resource type is invalid, it should be: vpc, subnet, eni, transit_gateway or transit_gateway_attachment."
+    condition     = can(regex("(?:^\\d{12}$|)", var.account_id))
+    error_message = "The account_id value must be 12 digits."
   }
 }
 
@@ -20,6 +21,14 @@ variable "resource_name" {
   description = "The AWS resource name to capture flow logs traffic."
 }
 
+variable "resource_type" {
+  type        = string
+  description = "The AWS resource type to capture flow logs traffic."
+  validation {
+    condition     = contains(["vpc", "subnet", "eni", "transit_gateway", "transit_gateway_attachment"], var.resource_type)
+    error_message = "The resource type is invalid, it should be: vpc, subnet, eni, transit_gateway or transit_gateway_attachment."
+  }
+}
 
 variable "traffic_type" {
   type        = string
@@ -71,7 +80,7 @@ EOF
   default     = {}
 }
 
-variable "s3_bucket_arn" {
+variable "s3_destination_bucket_arn" {
   type        = string
   description = "The ARN of the S3 bucket to export flow logs to."
   default     = null

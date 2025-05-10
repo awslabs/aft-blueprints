@@ -28,5 +28,5 @@ output "route_tables" {
 
 output "tgw_attachment_id" {
   description = "The ID of the transit gateway attachment"
-  value       = module.tgw_vpc_attachment.transit_gateway_attachment_id
+  value       = var.use_tgw_attachment_automation ? module.tgw_attachment_automation[0].transit_gateway_attachment_id : aws_ec2_transit_gateway_vpc_attachment.tgw[0].id
 }

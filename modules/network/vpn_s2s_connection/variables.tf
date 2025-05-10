@@ -1,6 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+variable "account_id" {
+  type        = string
+  description = "Account ID"
+  validation {
+    condition     = can(regex("(?:^\\d{12}$|)", var.account_id))
+    error_message = "The account_id value must be 12 digits."
+  }
+}
+
 variable "connection_name" {
   type        = string
   description = "The name of the VPN connection"

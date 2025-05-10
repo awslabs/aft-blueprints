@@ -12,7 +12,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw" {
   transit_gateway_default_route_table_association = false
   transit_gateway_default_route_table_propagation = false
   tags = merge(
-    { "Name" = "${data.aws_caller_identity.current.account_id}-tgw-attach-${local.vpc_name}" },
+    { "Name" = "${var.account_id}-tgw-attach-${local.vpc_name}" },
     var.tags
   )
 }

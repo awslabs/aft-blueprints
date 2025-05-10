@@ -15,10 +15,13 @@ module "vpc_egress" {
     module.availability_zones
   ]
 
-  ipam_pool_id                   = var.ipam_pools["${local.region}/shared"].id
+  identifier                     = "egress"
+  region_name                    = var.region_name
+  account_id                     = var.account_id
+  ipam_pool_id                   = var.ipam_pool_id
   az_set                         = var.availability_zones
   transit_gateway_id             = module.tgw.transit_gateway_id
-  transit_gateway_route_table_id = module.tgw.route_table_id["egress"]
+  transit_gateway_route_table_id = module.tgw.route_table_id["security"]
   enable_vpc_flow_logs           = true
   enable_central_vpc_flow_logs   = false
   tags                           = var.tags
