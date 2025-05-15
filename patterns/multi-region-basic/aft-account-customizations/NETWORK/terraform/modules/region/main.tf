@@ -61,6 +61,9 @@ module "vpc_endpoints" {
       vpc_endpoint   = true
     }
   ]
+  vpc_tags = {
+    "dns-service" = "true"
+  }
   tags = var.tags
 }
 
