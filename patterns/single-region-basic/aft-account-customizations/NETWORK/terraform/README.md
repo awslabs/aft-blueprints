@@ -80,10 +80,10 @@ aws_availability_zones = {
 
 | Name | Version |
 |------|---------|
-| aws | 5.73.0 |
-| aws.aft-management | 5.73.0 |
-| aws.org-management | 5.73.0 |
-| aws.primary | 5.73.0 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.org-management | n/a |
+| aws.primary | n/a |
 
 ## Modules
 

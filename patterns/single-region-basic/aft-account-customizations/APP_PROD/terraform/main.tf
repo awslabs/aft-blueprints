@@ -7,7 +7,6 @@ module "primary_region" {
   providers = {
     aws         = aws.primary
     aws.network = aws.network-primary
-    aws.dns1    = aws.network-primary
   }
 
   phz_name           = local.phz_name

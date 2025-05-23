@@ -55,9 +55,9 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 
 | Name | Version |
 |------|---------|
-| aws | 5.78.0 |
-| aws.aft-management | 5.78.0 |
-| aws.org-management | 5.78.0 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.org-management | n/a |
 
 ## Modules
 

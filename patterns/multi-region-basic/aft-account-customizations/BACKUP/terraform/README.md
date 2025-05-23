@@ -140,11 +140,11 @@ See below an example of an AWS Organizations delegation policy. Replace the plac
 
 | Name | Version |
 |------|---------|
-| aws | 5.78.0 |
-| aws.aft-management | 5.78.0 |
-| aws.org-management | 5.78.0 |
-| aws.primary | 5.78.0 |
-| aws.secondary | 5.78.0 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.org-management | n/a |
+| aws.primary | n/a |
+| aws.secondary | n/a |
 
 ## Modules
 

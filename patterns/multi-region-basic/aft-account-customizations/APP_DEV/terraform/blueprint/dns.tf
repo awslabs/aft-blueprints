@@ -3,31 +3,25 @@
 
 module "phz" {
   source = "../../../common/modules/dns/route53_phz"
-  count  = var.phz_name == null ? 0 : 1
+  count  = var.create_phz && var.phz_name != null ? 1 : 0
 
   name               = var.phz_name
-  create_test_record = true
   vpc_id             = module.vpc[0].vpc_id
+  create_test_record = true
   tags               = var.tags
 }
 
-module "phz_association_1" {
+module "phz_association" {
   source = "../../../common/modules/dns/route53_phz_association"
   count  = var.phz_name == null ? 0 : 1
   providers = {
-    aws.dns = aws.dns1
+    aws.dns = aws.network
   }
 
-  phz_id = module.phz[0].zone_id
-}
-
-module "phz_association_2" {
-  source = "../../../common/modules/dns/route53_phz_association"
-  count  = var.phz_name == null ? 0 : 1
-  providers = {
-    aws.dns = aws.dns2
-  }
-
-  phz_id = module.phz[0].zone_id
+  phz_id                       = data.aws_route53_zone.phz[0].zone_id
+  vpc_id                       = module.vpc[0].vpc_id
+  vpc_region                   = data.aws_region.current.name
+  associate_to_local_vpc       = var.create_phz ? false : true
+  associate_to_central_dns_vpc = true
 }
 
