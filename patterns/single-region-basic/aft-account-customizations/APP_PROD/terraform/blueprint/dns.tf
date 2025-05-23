@@ -10,13 +10,3 @@ module "phz" {
   create_test_record = true
   tags               = var.tags
 }
-
-module "phz_association_1" {
-  source = "../../../common/modules/dns/route53_phz_association"
-  count  = var.phz_name == null ? 0 : 1
-  providers = {
-    aws.dns = aws.dns1
-  }
-
-  phz_id = module.phz[0].zone_id
-}

@@ -30,7 +30,9 @@ Define the regions you want to use in the `aft-config.j2` file:
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| terraform | >=1.5.0 |
 
 ## Providers
 

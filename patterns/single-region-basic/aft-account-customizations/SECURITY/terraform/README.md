@@ -46,10 +46,10 @@ Update the `variable.auto.tfvars` file with the corresponding values for:
 
 | Name | Version |
 |------|---------|
-| aws | 5.81.0 |
-| aws.aft-management | 5.81.0 |
-| aws.org-management-primary | 5.81.0 |
-| aws.primary | 5.81.0 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.org-management-primary | n/a |
+| aws.primary | n/a |
 
 ## Modules
 

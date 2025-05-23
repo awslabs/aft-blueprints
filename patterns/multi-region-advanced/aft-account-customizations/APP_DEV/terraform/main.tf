@@ -8,13 +8,12 @@ module "primary_region" {
   providers = {
     aws         = aws.primary
     aws.network = aws.network-primary
-    aws.dns1    = aws.network-primary
-    aws.dns2    = aws.network-secondary
   }
 
-  phz_name = local.phz_name
-  vpc      = local.vpc
-  tags     = local.tags
+  create_phz = true #creating Route 53 PHZ only in the primary region, as it is a global resource
+  phz_name   = local.phz_name
+  vpc        = local.vpc
+  tags       = local.tags
 }
 
 module "secondary_region" {
@@ -24,10 +23,9 @@ module "secondary_region" {
   providers = {
     aws         = aws.secondary
     aws.network = aws.network-secondary
-    aws.dns1    = aws.network-primary
-    aws.dns2    = aws.network-secondary
   }
 
-  vpc  = local.vpc
-  tags = local.tags
+  phz_name = local.phz_name
+  vpc      = local.vpc
+  tags     = local.tags
 }
