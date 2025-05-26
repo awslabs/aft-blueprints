@@ -4,17 +4,17 @@
 variable "linking_mode" {
   description = "Indicates whether to aggregate findings from all of the available Regions or from a specified list."
   type        = string
-  default     = "SPECIFIED_REGIONS"
+  default     = "NO_REGIONS"
   validation {
-    condition     = contains(["ALL_REGIONS", "SPECIFIED_REGIONS", "ALL_REGIONS_EXCEPT_SPECIFIED"], var.linking_mode)
-    error_message = "Invalid linking mode. Valid values are ALL_REGIONS, SPECIFIED_REGIONS or ALL_REGIONS_EXCEPT_SPECIFIED."
+    condition     = contains(["NO_REGIONS", "ALL_REGIONS", "SPECIFIED_REGIONS", "ALL_REGIONS_EXCEPT_SPECIFIED"], var.linking_mode)
+    error_message = "Invalid linking mode. Valid values are NO_REGIONS, ALL_REGIONS, SPECIFIED_REGIONS or ALL_REGIONS_EXCEPT_SPECIFIED."
   }
 }
 
 variable "specified_regions" {
   description = "List of regions to include or exclude (required if linking_mode is set to ALL_REGIONS_EXCEPT_SPECIFIED or SPECIFIED_REGIONS)."
   type        = list(string)
-  default     = []
+  default     = null
 }
 
 variable "auto_enable_accounts" {

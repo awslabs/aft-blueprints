@@ -41,7 +41,7 @@ module "primary_guardduty" {
 #######   Security Hub delegation    #######
 ############################################
 # aws_securityhub_account is necessary to enable consolidated control findings feature, 
-# as Terraform resources for securityhub organization configuration level don't support set up it.
+# as Terraform resources for securityhub organization configuration level doesn't support setting it up.
 # https://github.com/hashicorp/terraform-provider-aws/issues/30022
 # https://github.com/hashicorp/terraform-provider-aws/pull/30692
 # https://github.com/hashicorp/terraform-provider-aws/issues/39687
@@ -68,8 +68,6 @@ module "securityhub" {
   ]
 
   configuration_type = "CENTRAL"
-  linking_mode       = "SPECIFIED_REGIONS"
-  specified_regions  = []
 }
 
 
