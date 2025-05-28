@@ -259,6 +259,3 @@ patterns/**/modules
 
 # Zip files
 **/*.zip
-
-# Checkov
-**/checkov*

@@ -36,6 +36,7 @@ resource "aws_instance" "bastion_linux" {
 }
 
 resource "aws_security_group" "bastion" {
+  #checkov:skip=CKV_AWS_382:This SG is for network testing purposes and must allow egress communication to 0.0.0.0/0.
   name_prefix = "ec2-bastion-sgp-"
   description = "Access to bastion instance: allow SSH and ICMP access from appropriate location. Allow all traffic from VPC CIDR"
   vpc_id      = var.vpc_id
@@ -58,7 +59,7 @@ resource "aws_security_group" "bastion" {
     description = "Allow ALL traffic from VPC"
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "all"
   }
   egress {
     cidr_blocks = ["0.0.0.0/0"]
