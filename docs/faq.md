@@ -43,4 +43,4 @@ Yes, the patterns are provided as examples and are meant to be modified after cl
 
 ### Can I run the AFT customization terraform code locally?
 
-Yes, you can use either the [**aft-local.sh**](https://github.com/awslabs/aft-blueprints/tree/main/assets/aft-local) script available in this repository, or you can use the [**aftctl**](https://github.com/edgarsilva948/aftctl) CLI developed by [@edgarsilva948](https://github.com/edgarsilva948).
+Yes, you can use the [**aft-local.sh**](https://github.com/awslabs/aft-blueprints/tree/main/assets/aft-local) script available in this repository.
