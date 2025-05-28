@@ -14,13 +14,15 @@ Ensure that you have installed the following tools:
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html){:target="_blank"}
 - [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli){:target="_blank"}
 
+Additionally, you check out [**aft-local.sh**](https://github.com/awslabs/aft-blueprints/tree/main/assets/aft-local) to learn how to run AFT Terraform code locally.
+
 ## AFT bootstrap
 
 Once all the prerequisites are done, deploy AFT on its dedicated management account. If you already have AFT deployed, you can skip this step.
 
 To deploy the AFT, we have a few bootstrap options:
 
-- If your organization is allowed to use AWS CodeCommit and you intend to use it, make use of the [**aft-bootstrap-pipeline**](https://github.com/aws-samples/aft-bootstrap-pipeline){:target="_blank"} . See the how to do it on the [Implement Account Factory for Terraform (AFT) by using a bootstrap pipeline](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/implement-account-factory-for-terraform-aft-by-using-a-bootstrap-pipeline.html){:target="_blank"}  guide.
+- You can use the [**aft-bootstrap-pipeline**](https://github.com/aws-samples/aft-bootstrap-pipeline){:target="_blank"} . See the how to do it on the [Implement Account Factory for Terraform (AFT) by using a bootstrap pipeline](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/implement-account-factory-for-terraform-aft-by-using-a-bootstrap-pipeline.html){:target="_blank"}  guide.
 
 - Another option is to follow the steps outlined in the AWS Control Tower Guide workshop. See the section [Account Factory for Terraform (AFT)](https://catalog.workshops.aws/control-tower/en-US/customization/aft/deploy).
 

@@ -132,3 +132,4 @@ nav:
       - Centralized Logs: architectures/centralized-logs.md
       - Security: architectures/security.md
       - Workload Account: architectures/workload-account.md
+  - FAQ: faq.md
