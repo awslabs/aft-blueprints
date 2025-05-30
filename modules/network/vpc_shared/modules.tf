@@ -30,6 +30,7 @@ module "vpce" {
     route_table_ids = toset(values(aws_route_table.subnets)[*].id)
     services        = var.gateway_endpoints
   }
+  policies = var.endpoint_policies
 }
 
 module "route53_rules_association" {

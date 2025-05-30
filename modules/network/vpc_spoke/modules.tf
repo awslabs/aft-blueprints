@@ -30,6 +30,7 @@ module "vpce" {
     route_table_ids = toset(concat(values(aws_route_table.private)[*].id, try([aws_route_table.public[0].id], [])))
     services        = var.gateway_endpoints
   }
+  policies = var.endpoint_policies
 }
 
 module "route53_rules_association" {

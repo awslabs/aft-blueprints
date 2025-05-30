@@ -150,6 +150,12 @@ variable "gateway_endpoints" {
   default     = []
 }
 
+variable "endpoint_policies" {
+  description = "A map of endpoint policies"
+  type        = map(any)
+  default     = {}
+}
+
 variable "private_subnet_tags" {
   description = "Additional tags for private subnets"
   type        = map(string)

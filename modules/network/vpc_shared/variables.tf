@@ -169,6 +169,12 @@ variable "gateway_endpoints" {
   default     = []
 }
 
+variable "endpoint_policies" {
+  description = "A map of endpoint policies"
+  type        = map(any)
+  default     = {}
+}
+
 variable "vpc_tags" {
   description = "Additional tags for the VPC"
   type        = map(string)

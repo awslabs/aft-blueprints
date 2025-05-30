@@ -70,6 +70,7 @@
 | enable\_central\_vpc\_flow\_logs | Should be true to enable centralized vpc flow logs to S3 bucket. | `bool` | `false` | no |
 | enable\_dns\_hostnames | Should be true to enable DNS hostnames in the VPC | `bool` | `true` | no |
 | enable\_vpc\_flow\_logs | Should be true to enable vpc flow logs to a local cloudwatch log group. | `bool` | `true` | no |
+| endpoint\_policies | A map of endpoint policies | `map(any)` | `{}` | no |
 | environment | Environment name. Will be used to define ipam pool and tgw route tables configuration. | `string` | n/a | yes |
 | gateway\_endpoints | A list of interface endpoints | `list(string)` | `[]` | no |
 | identifier | VPC identifier. If not entered, a random id will be generated. | `string` | `""` | no |
