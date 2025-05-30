@@ -15,7 +15,13 @@ variable "create_phz" {
 
 variable "phz_name" {
   type        = string
-  description = "Route 53 Private Hosted Zone name to create and/or associate to the centralized DNS VPC."
+  description = "Route 53 Private Hosted Zone name to create and/or associate to the centralized DNS VPC. [inform it if you are creating the PHZ]"
+  default     = null
+}
+
+variable "phz_id" {
+  type        = string
+  description = "Route 53 Private Hosted Zone Id to associate to the centralized DNS VPC. [use it when you are NOT creating the PHZ]"
   default     = null
 }
 

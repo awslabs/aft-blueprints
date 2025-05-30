@@ -26,6 +26,7 @@ module "secondary_region" {
   }
 
   phz_name = local.phz_name
+  phz_id   = try(module.primary_region[0].phz_id, null) #reusing Route 53 PHZ from the primary region, as it is a global resource
   vpc      = local.vpc
   tags     = local.tags
 }

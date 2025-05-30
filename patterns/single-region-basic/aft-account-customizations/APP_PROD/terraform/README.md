@@ -64,7 +64,9 @@ custom_fields = {
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| terraform | >=1.5.0 |
 
 ## Providers
 

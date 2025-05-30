@@ -28,6 +28,7 @@ module "secondary_region" {
   }
 
   phz_name          = local.phz_name
+  phz_id            = try(module.primary_region[0].phz_id, null) #reusing Route 53 PHZ from the primary region, as it is a global resource
   vpc               = local.vpc
   backup_account_id = data.aws_ssm_parameter.backup_account_id.value
   tags              = local.tags

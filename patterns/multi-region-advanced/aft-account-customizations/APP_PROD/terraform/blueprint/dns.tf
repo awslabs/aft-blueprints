@@ -18,10 +18,9 @@ module "phz_association" {
     aws.dns = aws.network
   }
 
-  phz_id                       = data.aws_route53_zone.phz[0].zone_id
-  vpc_id                       = module.vpc[0].vpc_id
+  phz_id                       = var.phz_id == null ? module.phz[0].zone_id : var.phz_id
+  vpc_id                       = var.create_phz ? null : try(module.vpc[0].vpc_id, null)
   vpc_region                   = data.aws_region.current.name
-  associate_to_local_vpc       = var.create_phz ? false : true
+  associate_to_local_vpc       = var.create_phz ? false : var.vpc == null ? false : true
   associate_to_central_dns_vpc = true
 }
-

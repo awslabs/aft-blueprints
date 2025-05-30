@@ -79,7 +79,8 @@ resource "aws_security_group" "bastion" {
 }
 
 resource "aws_iam_role" "bastion_role" {
-  name_prefix = "ec2-${var.identifier}-bastion-role-"
+  name_prefix           = "ec2-${var.identifier}-bastion-role-"
+  force_detach_policies = true
   assume_role_policy = jsonencode(
     {
       Version = "2012-10-17"

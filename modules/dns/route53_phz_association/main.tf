@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 resource "aws_route53_zone_association" "phz" {
-  count = var.associate_to_local_vpc == null ? 1 : 0
+  count = var.associate_to_local_vpc == true ? 1 : 0
 
   vpc_id     = var.vpc_id
   vpc_region = var.vpc_region

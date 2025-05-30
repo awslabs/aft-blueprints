@@ -41,18 +41,6 @@ variable "private_dns_enabled" {
   default     = true
 }
 
-variable "interface_endpoints" {
-  description = "A list of subnet IDs and interface endpoint service names. For service names use com.amazonaws.<region>.<service> format, or just <service> (e.g. com.amazonaws.us-east-1.ssm or ssm)."
-  type = object({
-    subnet_ids = list(string)
-    services   = list(string)
-  })
-  default = {
-    subnet_ids = []
-    services   = []
-  }
-}
-
 variable "gateway_endpoints" {
   description = "A list of route tables and gateway endpoints"
   type = object({
@@ -70,6 +58,24 @@ variable "gateway_endpoints" {
     )
     error_message = "The value of services is invalid, it must be one of the following: s3 or dynamodb."
   }
+}
+
+variable "interface_endpoints" {
+  description = "A list of subnet IDs and interface endpoint service names. For service names use com.amazonaws.<region>.<service> format, or just <service> (e.g. com.amazonaws.us-east-1.ssm or ssm)."
+  type = object({
+    subnet_ids = list(string)
+    services   = list(string)
+  })
+  default = {
+    subnet_ids = []
+    services   = []
+  }
+}
+
+variable "policies" {
+  description = "A map with endpoint service name (key) and IAM resource policy JSON (value) to be applied to endpoint. For service names use com.amazonaws.<region>.<service> format, or just <service> (e.g. com.amazonaws.us-east-1.ssm or ssm)."
+  type        = map(any)
+  default     = {}
 }
 
 variable "tags" {

@@ -42,5 +42,7 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| instance\_id | The EC2 instance id |
 <!-- END_TF_DOCS -->

@@ -55,24 +55,7 @@ resource "aws_vpc_endpoint" "interface" {
   security_group_ids  = local.create_security_group ? [aws_security_group.endpoints[0].id] : [var.security_group_id]
   subnet_ids          = var.interface_endpoints.subnet_ids
   private_dns_enabled = var.private_dns_enabled
-  policy = each.value == "ssm" || each.value == "com.amazonaws.${var.vpc_region}.ssm" ? jsonencode({
-    Version : "2012-10-17",
-    Statement : [
-      {
-        Sid : "AllowAll",
-        Effect : "Allow",
-        Principal : {
-          AWS : "*"
-        },
-        Action : [
-          "ssm:List*",
-          "ssm:Get*",
-          "ssm:UpdateInstanceInformation*"
-        ],
-        Resource : "*"
-      }
-    ]
-  }) : null
+  policy              = lookup(var.policies, each.value, null)
   tags = merge(
     { "Name" = "${var.vpc_name}-${replace(each.value, ".", "-")}-endpoint" },
     var.tags
