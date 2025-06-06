@@ -47,9 +47,7 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >=1.5 |
+No requirements.
 
 ## Providers
 

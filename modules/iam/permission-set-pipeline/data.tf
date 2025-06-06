@@ -1,15 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-data "aws_organizations_organization" "org" {
-  count = var.account_lifecycle_events_source == "CT" ? 1 : 0
-}
-
 data "aws_ssoadmin_instances" "sso" {}
 
 data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
+
+data "aws_organizations_organization" "org" {
+  count = var.account_lifecycle_events_source == "CT" ? 1 : 0
+}
 
 data "local_file" "buildspec" {
   filename = "${path.module}/assets/buildspecs/buildspec.yml"
@@ -18,8 +18,8 @@ data "local_file" "buildspec" {
 data "archive_file" "aft_new_account_event_forwarder" {
   count       = var.account_lifecycle_events_source == "AFT" ? 1 : 0
   type        = "zip"
-  source_dir  = "${path.module}/lambda/aft-new-account-event-forwarder"
-  output_path = "${path.module}/lambda/aft-new-account-event-forwarder.zip"
+  source_dir  = "${path.module}/assets/lambda/aft-new-account-event-forwarder"
+  output_path = "${path.module}/assets/lambda/aft-new-account-event-forwarder.zip"
 }
 
 data "aws_ssm_parameter" "aft_sns_notification_topic_arn" {

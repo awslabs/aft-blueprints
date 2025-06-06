@@ -4,13 +4,13 @@
 resource "aws_lambda_function" "aft_new_account_event_forwarder" {
   # checkov:skip=CKV_AWS_50:This function doesn't need X-Ray for tracing
   # checkov:skip=CKV_AWS_116:This function doesn't need a Dead Letter Queue(DLQ)
-  # checkov:skip=CKV_AWS_117:This is a full serveless function doesn't need VPC
+  # checkov:skip=CKV_AWS_117:This is a full serverless function doesn't need VPC
   # checkov:skip=CKV_AWS_173:This parameter is not a SecureString and there is no need to encrypt
   # checkov:skip=CKV_AWS_272:This function doesn't need to validate code-signing
   count    = var.account_lifecycle_events_source == "AFT" ? 1 : 0
   provider = aws.event-source-account
 
-  filename                       = "${path.module}/lambda/aft-new-account-event-forwarder.zip"
+  filename                       = "${path.module}/assets/lambda/aft-new-account-event-forwarder.zip"
   function_name                  = "aft-new-account-event-forwarder"
   description                    = "This Lambda will get the AFT notifications and send it to the custom EventBridge bus"
   role                           = aws_iam_role.lambda[0].arn

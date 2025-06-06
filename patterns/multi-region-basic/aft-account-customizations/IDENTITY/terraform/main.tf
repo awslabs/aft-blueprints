@@ -40,7 +40,6 @@ module "aws_ps_pipeline" {
   vcs_provider                    = var.vcs_provider
   account_lifecycle_events_source = "AFT"
   tags                            = local.tags
-  github_enterprise_url           = "https://example.com"
 }
 
 ########################################
@@ -58,6 +57,7 @@ module "primary_iam_access_analyzer" {
   providers = {
     aws = aws.primary
   }
+  depends_on = [aws_organizations_delegated_administrator.iam_access_analyzer]
 
   name = "iam-org-access-analyzer"
   type = "ORGANIZATION"
@@ -69,6 +69,7 @@ module "secondary_iam_access_analyzer" {
   providers = {
     aws = aws.secondary
   }
+  depends_on = [aws_organizations_delegated_administrator.iam_access_analyzer]
 
   name = "iam-org-access-analyzer"
   type = "ORGANIZATION"

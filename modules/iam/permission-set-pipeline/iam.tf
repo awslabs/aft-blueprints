@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 resource "aws_iam_role" "start_pipeline" {
-  name_prefix        = "${var.solution_name}-main-trigger-role"
+  name_prefix        = "${var.solution_name}-${var.branch_name}-trigger-role"
   assume_role_policy = file("${path.module}/assets/trust-policies/events.json")
 }
 
@@ -16,7 +16,7 @@ resource "aws_iam_role_policy" "start_pipeline" {
         {
           Action   = ["codepipeline:StartPipelineExecution"]
           Effect   = "Allow"
-          Resource = aws_codepipeline.main.arn
+          Resource = aws_codepipeline.this.arn
         }
       ]
     }

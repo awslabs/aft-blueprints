@@ -33,7 +33,7 @@ resource "aws_cloudwatch_event_target" "pipeline" {
   event_bus_name = aws_cloudwatch_event_bus.pipeline[0].name
   rule           = aws_cloudwatch_event_rule.pipeline[0].name
   role_arn       = aws_iam_role.start_pipeline.arn
-  arn            = aws_codepipeline.main.arn
+  arn            = aws_codepipeline.this.arn
 }
 
 resource "aws_cloudwatch_event_rule" "ct_events" {

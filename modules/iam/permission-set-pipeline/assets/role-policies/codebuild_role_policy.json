@@ -104,7 +104,7 @@
       "Action": [
         "codestar-connections:UseConnection"
       ],
-      "Resource": "arn:aws:codestar-connections:${region}:${account_id}:connection/*"
+      "Resource": "arn:aws:codeconnections:${region}:${account_id}:connection/*"
     },
     {
       "Effect": "Allow",

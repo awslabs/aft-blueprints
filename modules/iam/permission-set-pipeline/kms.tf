@@ -76,4 +76,3 @@ data "aws_iam_policy_document" "cmk_policy" {
     }
   }
 }
-

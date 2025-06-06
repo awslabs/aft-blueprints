@@ -31,6 +31,8 @@ client = boto3.client("events")
 
 
 def lambda_handler(event, context):
+    """Lambda handler for new account event forwarder"""
+
     try:
         log.info("Incoming event: %s", json.dumps(event))
         for record in event["Records"]:

@@ -22,11 +22,10 @@ phases:
       - |
         echo "Terraform installation..."
         cd /tmp
-        wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-        mkdir -p /opt/bin
-        unzip -q -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
-        mv terraform /opt/bin
-        /opt/bin/terraform -no-color --version
+        curl -q -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+        unzip -q -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+        mv terraform /usr/bin
+        terraform -no-color --version
         cd $DEFAULT_PATH
       
       - |
@@ -36,20 +35,19 @@ phases:
       
       - |
         echo "Terraform init..."
-        /opt/bin/terraform init
-        /opt/bin/terraform fmt
-        /opt/bin/terraform validate
+        terraform init
+        terraform fmt
+        terraform validate
   build:
     commands:
       - |
         echo "Terraform plan..."
-        /opt/bin/terraform plan -out output.tfplan
+        terraform plan -out output.tfplan
       
       - |
         echo "Terraform apply..."
-        SOURCE_ARTIFACT_NAME=$(echo $CODEBUILD_SOURCE_VERSION | cut -d "/" -f 3)
-        if [ $SOURCE_ARTIFACT_NAME == 'main' ]; then
-            /opt/bin/terraform apply "output.tfplan"
+        if [ $GIT_BRANCH == $BRANCH_NAME ]; then
+            terraform apply "output.tfplan"
         fi
 artifacts:
   files: output.tfplan
