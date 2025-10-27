@@ -37,6 +37,7 @@ module "default_account_config_primary" {
   }
 
   enable_s3_bpa          = lookup(local.features, "s3_bpa", true)
+  enable_ebs_bpa          = lookup(local.features, "ebs_bpa", true)
   enable_ami_bpa         = lookup(local.features, "ami_bpa", true)
   enforce_ebs_encryption = lookup(local.features, "ebs_encryption", true)
   enforce_imdsv2         = lookup(local.features, "imdsv2", true)
