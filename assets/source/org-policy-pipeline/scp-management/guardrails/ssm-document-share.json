@@ -1,0 +1,10 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": [
+      "ssm:UpdateServiceSetting",
+      "ssm:ResetServiceSetting"
+    ],
+    "Resource": "arn:aws:ssm:*:*:servicesetting/ssm/documents/console/public-sharing-permission"
+  }
+]

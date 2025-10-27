@@ -1,0 +1,18 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": [
+      "lambda:CreateFunctionUrlConfig",
+      "lambda:UpdateFunctionUrlConfig"
+    ],
+    "Resource": "arn:*:lambda:*:*:function:*",
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSControlTowerExecution",
+          "arn:aws:iam::*:role/AWSAFTExecution"
+        ]
+      }
+    }
+  }
+]

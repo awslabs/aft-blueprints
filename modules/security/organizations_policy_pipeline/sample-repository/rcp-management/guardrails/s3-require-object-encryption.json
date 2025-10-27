@@ -1,0 +1,20 @@
+[
+    {
+        "Sid": "CTS3PV6",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:PutObject",
+        "Resource": "*",
+        "Condition": {
+            "Null": {
+                "s3:x-amz-server-side-encryption-aws-kms-key-id": "true"
+            },
+            "ArnNotLike": {
+                "aws:PrincipalArn": "arn:aws:iam::*:role/AWSAFTExecution"
+            },
+            "BoolIfExists": { 
+                "aws:PrincipalIsAWSService": "false"
+            }
+        }
+    }
+]

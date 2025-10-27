@@ -1,0 +1,33 @@
+[
+    {
+        "Sid": "CustomGuardrails",
+        "Effect": "Deny",
+        "Action": [
+            "ec2:CreateKeyPair"
+        ],
+        "Resource": [
+            "*"
+        ],
+        "Condition": {
+            "ArnNotLike": {
+                "aws:PrincipalARN": [
+                    "arn:aws:iam::*:role/AWSControlTowerExecution",
+                    "arn:aws:iam::*:role/AWSAFTExecution"
+                ]
+            }
+        }
+    },
+    {
+        "Sid": "GRNewInstanceWithKeyPair",
+        "Effect": "Deny",
+        "Action": [
+            "ec2:RunInstances"
+        ],
+        "Resource": "*",
+        "Condition": {
+            "Null": {
+                "ec2:KeyPairName": "false"
+            }
+        }
+    }
+]

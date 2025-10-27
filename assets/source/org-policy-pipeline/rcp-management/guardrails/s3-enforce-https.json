@@ -1,0 +1,16 @@
+[
+  {
+    "Effect": "Deny",
+    "Principal": "*",
+    "Action": "s3:*",
+    "Resource": "*",
+    "Condition": {
+      "Bool": {
+        "aws:SecureTransport": "false"
+      },
+      "BoolIfExists": {
+        "aws:PrincipalIsAWSService": "false"
+      }
+    }
+  }
+]

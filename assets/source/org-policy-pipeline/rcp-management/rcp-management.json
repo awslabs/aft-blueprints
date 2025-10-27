@@ -1,0 +1,18 @@
+[
+    {
+        "SID": "security-guardrails",
+        "Target": {
+            "Type": "OU",
+            "ID": "Workload:ou-xxxxxxxxx"
+        },
+        "Guardrails": [
+            "s3-access-to-org-only",
+            "s3-enforce-https",
+            "secrets-access-to-org-only",
+            "sqs-access-to-org-only",
+            "sts-assume-role-org-only"
+        ],
+        "Policy": "",
+        "Comments": "RCPs for workloads"
+    }
+]

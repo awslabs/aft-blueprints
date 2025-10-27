@@ -1,0 +1,21 @@
+[
+  {
+    "Sid": "GlacierIAMAnalyzer",
+    "Effect": "Deny",
+    "Action": [
+      "glacier:DeleteArchive",
+      "glacier:DeleteVault"
+    ],
+    "Resource": [
+      "*"
+    ],
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSAFTExecution",
+          "arn:aws:iam::*:role/AWSControlTowerExecution"
+        ]
+      }
+    }
+  }
+]

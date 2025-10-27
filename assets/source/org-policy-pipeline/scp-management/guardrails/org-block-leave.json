@@ -1,0 +1,10 @@
+[
+  {
+    "Sid": "LeaveOrgBlockIAMUserAK",
+    "Effect": "Deny",
+    "Action": [
+      "organizations:LeaveOrganization"
+    ],
+    "Resource": "*"
+  }
+]

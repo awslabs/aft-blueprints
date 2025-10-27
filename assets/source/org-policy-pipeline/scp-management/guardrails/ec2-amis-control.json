@@ -1,0 +1,14 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": "ec2:RunInstances",
+    "Resource": "arn:aws:ec2:*::image/*",
+    "Condition": {
+      "StringNotEquals": {
+        "ec2:Owner": [
+          "<<GOLDEN_AMI_ACCOUNT_ID>>"
+        ]
+      }
+    }
+  }
+]

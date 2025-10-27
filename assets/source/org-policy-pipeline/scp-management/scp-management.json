@@ -1,0 +1,62 @@
+[
+    {
+        "SID": "workload-guardrails",
+        "Target": {
+            "Type": "OU",
+            "ID": "Workload:ou-xxxxxxxxx"
+        },
+        "Guardrails": [
+            "billing-block",
+            "ec2-deny-public-ip",
+            "ec2-disallow-vpc-changes",
+            "ec2-ebs-default-encryption",
+            "ec2-imdsv2-enabled",
+            "ec2-public-ami",
+            "ec2-snapshot-not-public",
+            "glacier-block-deletion",
+            "guardduty-enabled"
+        ],
+        "Policy": "",
+        "Comments": "Guardrails for workloads"
+    },
+    {
+        "SID": "core-guardrails",
+        "Target": {
+            "Type": "Environment",
+            "ID": "core"
+        },
+        "Guardrails": [
+            "kms-key-deletion",
+            "lambda-url-iam-only",
+            "org-block-leave",
+            "ram-block-external-share",
+            "s3-block-public-access",
+            "scp-allow-ami-homologada",
+            "ssm-document-share",
+            "vpc-flow-logs-enabled",
+            "guardduty-enabled"
+        ],
+        "Policy": "",
+        "Comments": "Guardrails for core accounts"
+    },
+    {
+        "SID": "dev-guardrails",
+        "Target": {
+            "Type": "Tag",
+            "ID": "env:dev"
+        },
+        "Guardrails": [
+            "kms-key-deletion",
+            "lambda-url-iam-only",
+            "org-block-leave",
+            "ram-block-external-share",
+            "rds-encryption",
+            "s3-block-public-access",
+            "ssm-document-share",
+            "vpc-flow-logs-enabled",
+            "guardduty-enabled"
+        ],
+        "Policy": "",
+        "Comments": "Guardrails for dev accounts based on tags"
+    }
+]

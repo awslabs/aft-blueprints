@@ -1,0 +1,20 @@
+[
+    {
+        "Sid": "CTSQSPV1",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "sqs:*",
+        "Resource": "*",
+        "Condition": {
+            "BoolIfExists": {
+                "aws:PrincipalIsAWSService": "false"
+            },
+            "StringNotEqualsIfExists": {
+                "aws:PrincipalOrgID": "o-xxxxxxxxxx"
+            },
+            "ArnNotLike": {
+                "aws:PrincipalArn": "arn:aws:iam::*:role/AWSAFTExecution"
+            }
+        }
+    }
+]

@@ -1,0 +1,40 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyCreateSecretWithNoProjectTag",
+            "Effect": "Deny",
+            "Action": "secretsmanager:CreateSecret",
+            "Resource": "*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Project": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyRunInstanceWithNoProjectTag",
+            "Effect": "Deny",
+            "Action": "ec2:RunInstances",
+            "Resource": [
+                "arn:aws:ec2:*:*:instance/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Project": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyCreateSecretWithNoCostCenterTag",
+            "Effect": "Deny",
+            "Action": "secretsmanager:CreateSecret",
+            "Resource": "*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/CostCenter": "true"
+                }
+            }
+        }
+    ]
+}

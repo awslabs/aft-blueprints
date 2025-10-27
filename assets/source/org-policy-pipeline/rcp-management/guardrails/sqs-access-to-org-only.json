@@ -1,0 +1,16 @@
+[
+  {
+    "Effect": "Deny",
+    "Principal": "*",
+    "Action": "sqs:*",
+    "Resource": "*",
+    "Condition": {
+      "StringNotEqualsIfExists": {
+        "aws:PrincipalOrgID": "<<ORG_ID>>"
+      },
+      "BoolIfExists": {
+        "aws:PrincipalIsAWSService": "false"
+      }
+    }
+  }
+]

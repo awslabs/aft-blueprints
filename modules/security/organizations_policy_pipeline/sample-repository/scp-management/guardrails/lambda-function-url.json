@@ -1,0 +1,23 @@
+[
+    {
+        "Sid": "Lambda",
+        "Effect": "Deny",
+        "Action": [
+            "lambda:CreateFunctionUrlConfig",
+            "lambda:UpdateFunctionUrlConfig"
+        ],
+        "Resource": "arn:*:lambda:*:*:function:*",
+        "Condition": {
+            "StringNotEquals": {
+                "lambda:FunctionUrlAuthType": "AWS_IAM"
+            },
+            "ArnNotLike": {
+                "aws:PrincipalARN": [
+                    "arn:aws:iam::*:role/AWSAFTExecution",
+                    "arn:aws:iam::*:role/AWSControlTowerExecution"
+
+                ]
+            }
+        }
+    }
+]

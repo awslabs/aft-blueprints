@@ -1,0 +1,34 @@
+[
+    {
+        "ID": "dev",
+        "Target": [
+            "App-Dev:ou-xxxxxxxxxx",
+            "Financial-Dev:012345678901"
+        ]
+    },
+    {
+        "ID": "staging",
+        "Target": [
+            "App-Stg:ou-xxxxxxxxxx",
+            "Financial-Stg:012345678901"
+        ]
+    },
+    {
+        "ID": "production",
+        "Target": [
+            "App:ou-xxxxxxxxxx",
+            "Financial:012345678901",
+            "Portal:991981288121"
+        ]
+    },
+    {
+        "ID": "core",
+        "Target": [
+            "Sandbox:ou-xxxxxxxxxx",
+            "Security:ou-xxxxxxxxxx",
+            "Shared:ou-xxxxxxxxxx",
+            "Audit:01234567890",
+            "Log Archive:01234567890"
+        ]
+    }
+]

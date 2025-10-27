@@ -1,0 +1,21 @@
+[
+    {
+        "Effect": "Deny",
+        "Action": [
+            "ec2:CreateSnapshot",
+            "ec2:CreateSnapshots"
+        ],
+        "Resource": "arn:*:ec2:*:*:volume/*",
+        "Condition": {
+            "Bool": {
+                "ec2:Encrypted": "false"
+            },
+            "ArnNotLike": {
+                "aws:PrincipalARN": [
+                    "arn:aws:iam::*:role/AWSControlTowerExecution",
+                    "arn:aws:iam::*:role/AWSAFTExecution"
+                ]
+            }
+        }
+    }
+]

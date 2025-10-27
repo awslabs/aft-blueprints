@@ -106,3 +106,26 @@ module "securityhub_default_policy" {
   enabled_standard_arns = var.securityhub_enabled_standard_arns
   association_targets   = [data.aws_organizations_organization.root_ou.roots[0].id]
 }
+
+##################################################
+#######     Organization Policy Pipeline   #######
+##################################################
+# Creates AWS Organization Policy (RCP/SCP) pipeline
+module "securityhub_default_policy" {
+  source     = "../../common/modules/security/organizations_policy_pipeline"
+
+  providers = aws.primary
+
+  project_name = "org-policy-mgmt"
+
+  terraform_version    = "1.9.8"
+  enable_bedrock       = true
+  bedrock_model_id       = "global.anthropic.claude-sonnet-4-20250514-v1:0"
+  provider_type        = "GitHub"
+  full_repository_name = "myorg/org-policy-mgmt-pipeline"
+  branch_name          = "main"
+  security_gate = [
+    "ERROR", "SECURITY_WARNING"
+  ]
+  tags = local.tags
+}

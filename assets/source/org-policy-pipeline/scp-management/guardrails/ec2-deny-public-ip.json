@@ -1,0 +1,12 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": "ec2:RunInstances",
+    "Resource": "*",
+    "Condition": {
+      "Bool": {
+        "ec2:AssociatePublicIpAddress": true
+      }
+    }
+  }
+]

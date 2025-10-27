@@ -1,0 +1,17 @@
+[
+    {
+        "Sid": "RCPorgid",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": "*",
+        "Condition": {
+            "StringNotEqualsIfExists": {
+                "aws:PrincipalOrgID": "o-xxxxxxxxxx"
+            },
+            "BoolIfExists": {
+                "aws:PrincipalIsAWSService": "false"
+            }
+        }
+    }
+]

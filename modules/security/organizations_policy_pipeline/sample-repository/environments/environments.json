@@ -1,0 +1,25 @@
+[
+    {
+        "ID": "dev",
+        "Target": [
+            "App-Dev:ou-1xxx-jxxx2rxx",
+            "Financial-Dev:ou-1xxx-nxr2xxx0"
+        ]
+    },
+    {
+        "ID": "testing",
+        "Target": [
+            "App-Hom:ou-1xxx-2ooox34y",
+            "Financial-Hom:ou-0xxx-1x2xxx3x"
+        ]
+    },
+    {
+        "ID": "core",
+        "Target": [
+            "Sandbox:ou-1xxx-2x34nxxx",
+            "Security:ou-1xxx-zx2x3x4y",
+            "Shared:ou-1xxx-x2x3rxxx",
+            "Workload:ou-1xxx-xxrryyzz"
+        ]
+    }
+]
