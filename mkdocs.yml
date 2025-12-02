@@ -110,9 +110,6 @@ extra:
       - reject
       - manage
 
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/@glidejs/glide
-
 nav:
   - Overview: index.md
   - Getting started: getting-started.md
