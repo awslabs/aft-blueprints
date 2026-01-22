@@ -1,0 +1,24 @@
+[
+  {
+    "Effect": "Deny",
+    "Sid": "DenySHChanges",
+    "Action": [
+      "securityhub:DeleteInvitations",
+      "securityhub:DisableSecurityHub",
+      "securityhub:DisassociateFromMasterAccount",
+      "securityhub:DeleteMembers",
+      "securityhub:DisassociateMembers"
+    ],
+    "Resource": [
+      "*"
+    ],
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSAFTExecution",
+          "arn:aws:iam::*:role/AWSControlTowerExecution"
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,53 @@
+[
+    {
+        "SID": "example-account",
+        "Target": {
+            "Type": "Account",
+            "ID": "app-dev:012345678901"
+        },
+        "Guardrails": [
+            "iam-access-analyzer",
+            "ec2-no-keypairs",
+            "lambda-function-url"
+        ],
+        "Policy": "",
+        "Comments": "Guardrails for an account"
+    },
+    {
+        "SID": "example-ou",
+        "Target": {
+            "Type": "OU",
+            "ID": "Financial-Hom:ou-0xxx-1x2xxx3x"
+        },
+        "Guardrails": [],
+        "Policy": "scp-tag-finops",
+        "Comments": "Policy for OU in HML"
+    },
+    {
+        "SID": "example-environment",
+        "Target": {
+            "Type": "Environment",
+            "ID": "dev"
+        },
+        "Guardrails": [
+            "iam-access-analyzer",
+            "guardduty-enabled",
+            "rds-encryption"
+        ],
+        "Policy": "",
+        "Comments": "Guardrails for dev environments"
+    },
+    {
+        "SID": "example-tag",
+        "Target": {
+            "Type": "Tag",
+            "ID": "type:core"
+        },
+        "Guardrails": [
+            "securityhub-enabled",
+            "ec2-snapshot-encryption"
+        ],
+        "Policy": "",
+        "Comments": "Guardrails for accounts with tag type:core"
+    }    
+]

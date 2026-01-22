@@ -1,0 +1,18 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": "ec2:ModifySnapshotAttribute",
+    "Resource": "arn:*:ec2:*::snapshot/*",
+    "Condition": {
+      "StringEquals": {
+        "ec2:Add/group": "all"
+      },
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSControlTowerExecution",
+          "arn:aws:iam::*:role/AWSAFTExecution"
+        ]
+      }
+    }
+  }
+]

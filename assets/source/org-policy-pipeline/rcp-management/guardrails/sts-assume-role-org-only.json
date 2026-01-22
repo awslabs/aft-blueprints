@@ -1,0 +1,24 @@
+[
+  {
+    "Effect": "Deny",
+    "Principal": "*",
+    "Action": [
+      "sts:AssumeRole",
+      "sts:SetContext"
+    ],
+    "Resource": "*",
+    "Condition": {
+      "StringNotEqualsIfExists": {
+        "aws:PrincipalOrgID": "<<ORG_ID>>"
+      },
+      "BoolIfExists": {
+        "aws:PrincipalIsAWSService": "false"
+      },
+      "ArnNotLike": {
+        "aws:PrincipalArn": [
+          "arn:aws:iam::<<ACCOUNT_ID>>:role/<<ROLE_EXCEPTION>>"
+        ]
+      }
+    }
+  }
+]

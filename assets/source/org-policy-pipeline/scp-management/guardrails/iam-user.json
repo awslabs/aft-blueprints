@@ -1,0 +1,23 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": [
+      "iam:CreateAccessKey",
+      "iam:CreateUser",
+      "iam:UpdateLoginProfile",
+      "iam:CreateLoginProfile",
+      "iam:DeleteLoginProfile",
+      "iam:UpdateAccountPasswordPolicy",
+      "iam:DeleteAccountPasswordPolicy"
+    ],
+    "Resource": "*",
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSControlTowerExecution",
+          "arn:aws:iam::*:role/AWSAFTExecution"
+        ]
+      }
+    }
+  }
+]

@@ -21,9 +21,15 @@ resource "aws_ebs_encryption_by_default" "account" {
 }
 
 resource "aws_ebs_default_kms_key" "account" {
-  count   = (var.enforce_ebs_encryption && var.default_ebs_kms_key != "") ? 1 : 0
+  count   = var.enforce_ebs_encryption ? 1 : 0
   key_arn = var.default_ebs_kms_key
 }
+
+resource "aws_ebs_snapshot_block_public_access" "account" {
+  count   = var.enable_ebs_bpa ? 1 : 0
+  state = "block-all-sharing"
+}
+
 
 resource "aws_ec2_instance_metadata_defaults" "enforce_imdsv2" {
   count                       = var.enforce_imdsv2 ? 1 : 0

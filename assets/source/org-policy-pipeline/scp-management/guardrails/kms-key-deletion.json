@@ -1,0 +1,22 @@
+[
+  {
+    "Sid": "GuardKMSActions",
+    "Effect": "Deny",
+    "Action": [
+      "kms:DeleteAlias",
+      "kms:DeleteImportedKeyMaterial",
+      "kms:ScheduleKeyDeletion"
+    ],
+    "Resource": [
+      "*"
+    ],
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSAFTExecution",
+          "arn:aws:iam::*:role/AWSControlTowerExecution"
+        ]
+      }
+    }
+  }
+]

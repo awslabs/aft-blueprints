@@ -1,0 +1,20 @@
+[
+  {
+    "Sid": "S3BlockPublicAccess",
+    "Effect": "Deny",
+    "Action": [
+      "s3:PutAccountPublicAccessBlock"
+    ],
+    "Resource": [
+      "*"
+    ],
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSAFTExecution",
+          "arn:aws:iam::*:role/AWSControlTowerExecution"
+        ]
+      }
+    }
+  }
+]

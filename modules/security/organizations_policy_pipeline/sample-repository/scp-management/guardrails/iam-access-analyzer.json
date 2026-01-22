@@ -1,0 +1,20 @@
+[
+    {
+        "Effect": "Deny",
+        "Action": [
+            "access-analyzer:Apply*",
+            "access-analyzer:CreateArchiveRule",
+            "access-analyzer:Delete*",
+            "access-analyzer:Update*"
+        ],
+        "Resource": "*",
+        "Condition": {
+            "ArnNotLike": {
+                "aws:PrincipalARN": [
+                    "arn:aws:iam::*:role/AWSControlTowerExecution",
+                    "arn:aws:iam::*:role/AWSAFTExecution"
+                ]
+            }
+        }
+    }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": [
+      "ec2:DeleteFlowLogs"
+    ],
+    "Resource": "*",
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSAFTExecution",
+          "arn:aws:iam::*:role/AWSControlTowerExecution"
+        ]
+      }
+    }
+  }
+]

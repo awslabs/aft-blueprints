@@ -1,0 +1,15 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": [
+      "ram:CreateResourceShare",
+      "ram:UpdateResourceShare"
+    ],
+    "Resource": "*",
+    "Condition": {
+      "Bool": {
+        "ram:RequestedAllowsExternalPrincipals": "true"
+      }
+    }
+  }
+]

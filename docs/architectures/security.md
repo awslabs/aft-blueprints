@@ -1,4 +1,4 @@
-# Security services
+# Security
 
 ## AWS Security Hub
 
@@ -7,3 +7,6 @@
 ## Amazon GuardDuty
 
 ![GuardDuty diagram](../static/aws-security-services-guardduty.jpg)
+
+## Organization Policy Pipeline
+![Organization Policy Pipeline](../static/aws-org-pipeline.png)

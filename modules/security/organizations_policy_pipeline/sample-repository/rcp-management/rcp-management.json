@@ -1,0 +1,15 @@
+[
+    {
+        "SID": "s3-protection",
+        "Target": {
+            "Type": "Account",
+            "ID": "app-dev:012345678901"
+        },
+        "Guardrails": [
+            "s3-require-orgid",
+            "s3-require-object-encryption"
+        ],
+        "Policy": "",
+        "Comments": "Guardrails for a DEV account"
+    }
+]

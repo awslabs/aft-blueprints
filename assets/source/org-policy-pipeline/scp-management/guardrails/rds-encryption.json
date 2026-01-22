@@ -1,0 +1,41 @@
+[
+  {
+    "Effect": "Deny",
+    "Action": [
+      "rds:CreateDBInstance"
+    ],
+    "Resource": "*",
+    "Condition": {
+      "StringEquals": {
+        "rds:DatabaseEngine": [
+          "mariadb",
+          "mysql",
+          "oracle-ee",
+          "oracle-se2",
+          "oracle-se1",
+          "oracle-se",
+          "postgres",
+          "sqlserver-ee",
+          "sqlserver-se",
+          "sqlserver-ex",
+          "sqlserver-web"
+        ]
+      },
+      "BoolIfExists": {
+        "rds:StorageEncrypted": "false"
+      }
+    }
+  },
+  {
+    "Effect": "Deny",
+    "Action": [
+      "rds:CreateDBCluster"
+    ],
+    "Resource": "*",
+    "Condition": {
+      "BoolIfExists": {
+        "rds:StorageEncrypted": "false"
+      }
+    }
+  }
+]

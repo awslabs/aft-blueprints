@@ -1,0 +1,27 @@
+[
+  {
+    "Sid": "DenyGDchanges",
+    "Effect": "Deny",
+    "Action": [
+      "guardduty:DeleteDetector",
+      "guardduty:DeleteInvitations",
+      "guardduty:DeleteIPSet",
+      "guardduty:DeleteMembers",
+      "guardduty:DeleteThreatIntelSet",
+      "guardduty:DisassociateFromMasterAccount",
+      "guardduty:DisassociateMembers",
+      "guardduty:StopMonitoringMembers"
+    ],
+    "Resource": [
+      "*"
+    ],
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSAFTExecution",
+          "arn:aws:iam::*:role/AWSControlTowerExecution"
+        ]
+      }
+    }
+  }
+]

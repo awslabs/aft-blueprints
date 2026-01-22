@@ -1,0 +1,20 @@
+[
+  {
+    "Sid": "GlacierIAMAnalyzer",
+    "Effect": "Deny",
+    "Action": [
+      "access-analyzer:DeleteAnalyzer"
+    ],
+    "Resource": [
+      "*"
+    ],
+    "Condition": {
+      "ArnNotLike": {
+        "aws:PrincipalARN": [
+          "arn:aws:iam::*:role/AWSAFTExecution",
+          "arn:aws:iam::*:role/AWSControlTowerExecution"
+        ]
+      }
+    }
+  }
+]

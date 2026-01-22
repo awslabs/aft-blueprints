@@ -7,6 +7,13 @@ variable "enable_s3_bpa" {
   default     = true
 }
 
+variable "enable_ebs_bpa" {
+  type        = bool
+  description = "Block EBS public access at account level"
+  default     = true
+}
+
+
 variable "enable_ami_bpa" {
   type        = bool
   description = "Block public sharing of AMI at account level"
